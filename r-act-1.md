@@ -40,6 +40,12 @@ Documentar el uso de herramientas de inteligencia artificial durante el desarrol
 **Modificaciones realizadas por el equipo:** Ajuste de tipos de datos, revisión de constraints y adaptación a la estructura de archivos solicitada para el repositorio.
 **Forma en que se verificó el resultado:** Revisión manual del script SQL contra el documento de requerimientos funcionales y el modelo de datos de Spring Boot (JPA).
 
+**Herramienta utilizada:** ChatGPT
+**Actividad para la que se utilizó:** Asistencia para plasmar los requerimientos.
+**Código o contenido generado:** Lista de requerimeintos y division de módulos.
+**Modificaciones realizadas por el equipo:** Ajustes minimos de requerimientos. 
+**Forma en que se verificó el resultado:** Revision general si los requerimientos seguian nuestro borrador inicial.
+
 # 6. Participación individual
 Describir brevemente la contribución de cada integrante.
 
