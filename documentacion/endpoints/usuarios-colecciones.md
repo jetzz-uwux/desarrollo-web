@@ -1,5 +1,5 @@
 # Módulo: Usuarios y biblioteca personal
-**Responsable:** Juan Luis Gaona Aguirre
+**Responsable:** Juan Luis Gaona Aguirre (Integrante 03)
 
 ## Tareas asignadas
 - **Frontend:** Registro, acceso, perfil, colecciones y progreso de lectura.

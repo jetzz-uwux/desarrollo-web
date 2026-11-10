@@ -1,5 +1,5 @@
 # Módulo: Catálogo, búsqueda y sagas
-**Responsable:** Jetzaly Josmery Tello Campos
+**Responsable:** Jetzaly Josmery Tello Campos (Integrante 01)
 
 ## Tareas asignadas
 - **Frontend:** Página principal, catálogo, buscador, filtros, fichas de libros y sagas.
