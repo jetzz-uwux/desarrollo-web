@@ -10,6 +10,6 @@ import mx.uv.booknest.models.Genre;
  * 
  */
 
-public interface GenreRepository extends CrudRepository <Genre, Integer>{
+public interface GenreRepository extends CrudRepository <Genre, Long>{
 
 }

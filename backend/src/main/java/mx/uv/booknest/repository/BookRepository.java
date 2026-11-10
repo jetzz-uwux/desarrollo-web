@@ -9,6 +9,6 @@ import mx.uv.booknest.models.Book;
  * 
  */
 
-public interface BookRepository extends CrudRepository <Book, Integer>  {
+public interface BookRepository extends CrudRepository <Book, Long>  {
 
 }

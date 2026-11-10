@@ -9,6 +9,6 @@ import mx.uv.booknest.models.BookAuthor;
  * 
  */
 
-public interface BookAuthorRepository extends CrudRepository<BookAuthor, Integer> {
+public interface BookAuthorRepository extends CrudRepository<BookAuthor, Long> {
 
 }

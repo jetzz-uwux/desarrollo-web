@@ -10,7 +10,7 @@ import mx.uv.booknest.models.LiterarySeries;
  * 
  */
 
-public interface LiterarySeriesRepository extends CrudRepository <LiterarySeries, Integer> {
+public interface LiterarySeriesRepository extends CrudRepository <LiterarySeries, Long> {
 
 
 }
