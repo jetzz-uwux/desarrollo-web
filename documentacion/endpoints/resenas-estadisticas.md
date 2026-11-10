@@ -1,5 +1,5 @@
 # Módulo: Reseñas y estadísticas
-**Responsable:** Camila Mariné Crespo Zurita (Integrante 4)
+**Responsable:** Camila Mariné Crespo Zurita (Integrante 04)
 
 ## Tareas asignadas
 - **Frontend:** Reseñas, calificaciones, rankings y paneles estadísticos.

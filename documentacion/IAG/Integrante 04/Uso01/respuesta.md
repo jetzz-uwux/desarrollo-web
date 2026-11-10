@@ -1,0 +1,3 @@
+**Herramienta:** Gemini (Modelo de Google)
+**Respuesta obtenida:** 
+Gemini generó un script SQL completo (`schema.sql`) compatible con PostgreSQL. El script incluye la creación de las tablas principales (`users`, `books`, `authors`, `genres`, `book_files`, `reviews`, `ratings`), las tablas intermedias (pivot) para las relaciones muchos a muchos, y todas las restricciones (constraints) críticas solicitadas, como el límite de calificaciones de 1 a 5 estrellas y la unicidad de las mismas por usuario.

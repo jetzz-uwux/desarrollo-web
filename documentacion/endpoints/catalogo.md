@@ -11,14 +11,16 @@
 
 ## Endpoints propuestos
 
-| Método | Ruta | Descripción |
-| --- | --- | --- |
-|GET|`/api/libros`|Lista con búsqueda, filtros y orden|
-|GET|`/api/libros/{id}`|Ficha completa|
-|GET|`/api/generos`|Lista de géneros|
-|GET|`/autores`|Lista de autores|
-|GET|`/sagas`|Lista de sagas|
-|GET|`/sagas/{id}`|Saga con sus libros en orden|
-|POST|`/sagas`|Crea una saga|
-|PUT|`/sagas/{id}`|Modifica una saga|
-|DELETE|`/sagas/{id}`|Elimina una saga|
+| Método | Ruta | Descripción | Códigos |
+|---|---|---|---|
+| GET | `/api/books` | Lista con búsqueda, filtros y orden | 200 |
+| GET | `/api/books/{id}` | Ficha completa | 200, 404 |
+| GET | `/api/genres` | Lista de géneros | 200 |
+| GET | `/api/authors` | Lista de autores | 200 |
+| GET | `/api/series` | Lista de series | 200 |
+| GET | `/api/series/{id}` | Serie con sus libros en orden de lectura | 200, 404 |
+| POST | `/api/series` | Crea una serie | 201, 400 |
+| PUT | `/api/series/{id}` | Modifica una serie | 200, 400, 404 |
+| DELETE | `/api/series/{id}` | Elimina una serie | 204, 404, 409 |
+| POST | `/api/series/{id}/books` | Agrega un libro a la serie | 201, 400, 404, 409 |
+| DELETE | `/api/series/{id}/books/{bookId}` | Quita un libro de la serie | 204, 404 |

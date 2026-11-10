@@ -1,0 +1,2 @@
+Actúa como un Arquitecto de Base de Datos Senior y DBA experto en PostgreSQL. Tu tarea es diseñar el esquema relacional DDL (Data Definition Language) definitivo, escalable y en 3ra Forma Normal (3FN) para "BookNest", una plataforma web de archivo literario colaborativo y biblioteca personal.
+Este esquema será consumido por un backend en Spring Boot (JPA/Hibernate), por lo que debe seguir las mejores prácticas de nomenclatura... (Se le pasaron todos los módulos y restricciones).

@@ -1,5 +1,5 @@
 # Módulo: Archivo colaborativo
-**Responsable:** Hans Arturo Martínez Romero
+**Responsable:** Hans Arturo Martínez Romero (Integrante 02)
 
 ## Tareas asignadas
 - **Frontend:** Formularios de aportación, adjuntar PDF y descargar archivos.

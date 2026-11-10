@@ -1,0 +1,4 @@
+**Tipo de uso:** Diseño de base de datos / Generación de código DDL
+
+**Reflexión del estudiante:**
+Utilizar la IA para generar el esquema base en PostgreSQL nos permitió ahorrar mucho tiempo en la escritura repetitiva de sintaxis DDL. Sin embargo, aprendí que para que la IA devuelva un modelo relacional exacto y sin errores lógicos (alucinaciones), es necesario restringirla mediante un prompt ultraespecífico. Tuve que indicarle explícitamente las reglas de negocio (como evitar que un usuario califique dos veces el mismo libro) y los constraints matemáticos (calificaciones del 1 al 5) para que el script `schema.sql` reflejara completamente los requerimientos del proyecto BookNest antes de pasarlo a Spring Boot.
