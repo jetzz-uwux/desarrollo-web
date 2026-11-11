@@ -20,7 +20,7 @@ public class LiterarySeries {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // BigSerial su equivalente en Java es Long
     private String name;
-    private String seriestype;
+    private String seriesType;
 
     public LiterarySeries(){} // Constructor vacío
 
@@ -31,16 +31,16 @@ public class LiterarySeries {
     public String getName() {
         return name;
     }
-    public String getSeriestype() {
-        return seriestype;
+    public String getSeriesType() {
+        return seriesType;
     }
 
     // Setters
     public void setName(String name) {
         this.name = name;
     }
-    public void setSeriestype(String seriestype) {
-        this.seriestype = seriestype;
+    public void setSeriesType(String seriesType) {
+        this.seriesType = seriesType;
     }
 
 }

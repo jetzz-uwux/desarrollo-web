@@ -18,8 +18,8 @@ public class BookGenre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long bookid;
-    private Long genreid;
+    private Long bookId;
+    private Long genreId;
 
     public BookGenre(){} // Constructor vacío
 
@@ -27,19 +27,19 @@ public class BookGenre {
     public Long getId() {
         return id;
     }
-    public Long getBookid() {
-        return bookid;
+    public Long getBookId() {
+        return bookId;
     }
-    public Long getGenreid() {
-        return genreid;
+    public Long getGenreId() {
+        return genreId;
     }
 
     // Setters
-    public void setBookid(Long bookid) {
-        this.bookid = bookid;
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
-    public void setGenreid(Long genreid) {
-        this.genreid = genreid;
+    public void setGenreId(Long genreId) {
+        this.genreId = genreId;
     }
 
 }

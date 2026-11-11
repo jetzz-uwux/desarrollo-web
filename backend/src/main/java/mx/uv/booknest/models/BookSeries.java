@@ -18,10 +18,10 @@ public class BookSeries {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long bookid;
-    private Long seriesid;
-    private Integer volumenumber;
-    private Integer readingorder;
+    private Long bookId;
+    private Long seriesId;
+    private Integer volumeNumber;
+    private Integer readingOrder;
 
     public BookSeries(){} // Constructor vacío
 
@@ -29,31 +29,31 @@ public class BookSeries {
     public Long getId() {
         return id;
     }
-    public Long getBookid() {
-        return bookid;
+    public Long getBookId() {
+        return bookId;
     }
-    public Long getSeriesid() {
-        return seriesid;
+    public Long getSeriesId() {
+        return seriesId;
     }
-    public Integer getVolumenumber() {
-        return volumenumber;
+    public Integer getVolumeNumber() {
+        return volumeNumber;
     }
-    public Integer getReadingorder() {
-        return readingorder;
+    public Integer getReadingOrder() {
+        return readingOrder;
     }
 
     // Setters
-    public void setBookid(Long bookid) {
-        this.bookid = bookid;
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
-    public void setSeriesid(Long seriesid) {
-        this.seriesid = seriesid;
+    public void setSeriesId(Long seriesId) {
+        this.seriesId = seriesId;
     }
-    public void setVolumenumber(Integer volumenumber) {
-        this.volumenumber = volumenumber;
+    public void setVolumeNumber(Integer volumeNumber) {
+        this.volumeNumber = volumeNumber;
     }
-    public void setReadingorder(Integer readingorder) {
-        this.readingorder = readingorder;
+    public void setReadingOrder(Integer readingOrder) {
+        this.readingOrder = readingOrder;
     }
     
 }

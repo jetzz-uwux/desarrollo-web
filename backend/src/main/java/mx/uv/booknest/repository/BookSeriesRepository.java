@@ -1,6 +1,6 @@
 package mx.uv.booknest.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import mx.uv.booknest.models.BookSeries;
 
 /**
@@ -9,6 +9,6 @@ import mx.uv.booknest.models.BookSeries;
  * 
  */
 
-public interface BookSeriesRepository extends CrudRepository <BookSeries,Long> {
+public interface BookSeriesRepository extends JpaRepository <BookSeries,Long> {
 
 }

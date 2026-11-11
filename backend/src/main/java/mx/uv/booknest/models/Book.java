@@ -20,12 +20,12 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // BigSerial su equivalente en Java es Long
-    private String maintitle;
-    private LocalDate originalpublicationdate;
+    private String mainTitle;
+    private LocalDate originalPublicationDate;
     private String synopsis;
-    private Integer totalpages;
-    private String coverurl;
-    private Long createduserid; // BigSerial su equivalente en Java es Long
+    private Integer totalPages;
+    private String coverUrl;
+    private Long createdByUserId; // BigInt su equivalente en Java es Long
 
     public Book(){} // Constructor vacío
 
@@ -33,43 +33,43 @@ public class Book {
     public Long getId() {
         return id;
     }
-    public String getMaintitle() {
-        return maintitle;
+    public String getMainTitle() {
+        return mainTitle;
     }
-    public LocalDate getOriginalpublicationdate() {
-        return originalpublicationdate;
+    public LocalDate getOriginalPublicationDate() {
+        return originalPublicationDate;
     }
     public String getSynopsis() {
         return synopsis;
     }
-    public Integer getTotalpages() {
-        return totalpages;
+    public Integer getTotalPages() {
+        return totalPages;
     }
-    public String getCoverurl() {
-        return coverurl;
+    public String getCoverUrl() {
+        return coverUrl;
     }
-    public Long getCreateduserid() {
-        return createduserid;
-    }
+public Long getCreatedByUserId() {
+    return createdByUserId;
+}
 
     // Setters
-    public void setMaintitle(String maintitle) {
-        this.maintitle = maintitle;
+    public void setMainTitle(String mainTitle) {
+        this.mainTitle = mainTitle;
     }
-    public void setOriginalpublicationdate(LocalDate originalpublicationdate) {
-        this.originalpublicationdate = originalpublicationdate;
+    public void setOriginalPublicationDate(LocalDate originalPublicationDate) {
+        this.originalPublicationDate = originalPublicationDate;
     }
     public void setSynopsis(String synopsis) {
         this.synopsis = synopsis;
     }
-    public void setTotalpages(Integer totalpages) {
-        this.totalpages = totalpages;
+    public void setTotalPages(Integer totalPages) {
+        this.totalPages = totalPages;
     }
-    public void setCoverurl(String coverurl) {
-        this.coverurl = coverurl;
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
     }
-    public void setCreateduserid(Long createduserid) {
-        this.createduserid = createduserid;
+    public void setCreatedByUserId (Long createdByUserId ) {
+        this.createdByUserId = createdByUserId;
     }
 
 }

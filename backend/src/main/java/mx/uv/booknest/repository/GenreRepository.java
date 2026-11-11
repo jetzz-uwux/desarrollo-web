@@ -1,7 +1,6 @@
 package mx.uv.booknest.repository;
 
-import org.springframework.data.repository.CrudRepository;
-
+import org.springframework.data.jpa.repository.JpaRepository;
 import mx.uv.booknest.models.Genre;
 
 /**
@@ -10,6 +9,6 @@ import mx.uv.booknest.models.Genre;
  * 
  */
 
-public interface GenreRepository extends CrudRepository <Genre, Long>{
+public interface GenreRepository extends JpaRepository <Genre, Long>{
 
 }

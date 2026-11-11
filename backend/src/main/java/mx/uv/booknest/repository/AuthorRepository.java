@@ -1,6 +1,6 @@
 package mx.uv.booknest.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import mx.uv.booknest.models.Author;
 
 /**
@@ -9,6 +9,6 @@ import mx.uv.booknest.models.Author;
  * 
  */
 
-public interface AuthorRepository extends CrudRepository<Author, Long> {
+public interface AuthorRepository extends JpaRepository <Author, Long> {
 
 }

@@ -19,8 +19,8 @@ public class BookAuthor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long bookid;
-    private Long authorid;
+    private Long bookId;
+    private Long authorId;
 
     public BookAuthor() {}
 
@@ -28,18 +28,18 @@ public class BookAuthor {
     public Long getId() {
         return id;
     }
-    public Long getBookid() {
-        return bookid;
+    public Long getBookId() {
+        return bookId;
     }
-    public Long getAuthorid() {
-        return authorid;
+    public Long getAuthorId() {
+        return authorId;
     }
 
     // Setters
-    public void setBookid(Long bookid) {
-        this.bookid = bookid;
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
-    public void setAuthorid(Long authorid) {
-        this.authorid = authorid;
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
     }
 }
