@@ -1,0 +1,1 @@
+Comportate como un experto en tecnologías web y hazme una propuesta de comprobacion con curl para probar cada una de los endopoints que construí, dame una tabla de todas las pruebas tanto de éxito como de fallos para comprobar si funciona correctamente
