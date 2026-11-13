@@ -32,6 +32,10 @@
 | Implementar POST y GET - Catalogo|Jetzaly Josmery Tello Campos|https://github.com/jetzz-uwux/desarrollo-web/commit/dd91bb467b31ca28ef31981ae5a603332873cd63|
 | Documentacion de resultados CURL - catálogo|Jetzaly Josmery Tello Campos|https://github.com/jetzz-uwux/desarrollo-web/commit/5c19d8fd8e30768fe40eabff94cc42efa6eba392|
 |Documentación IA |Jetzaly Josmery Tello Campos |https://github.com/jetzz-uwux/desarrollo-web/commit/11871182f34f13d85134bd8fc380b869817454c6|
+| Crear entidades y repositorios - Reseñas/Stats | Camila Mariné Crespo Zurita | https://github.com/jetzz-uwux/desarrollo-web/commit/b9d0510 |
+| Implementar POST y GET - Reseñas/Stats | Camila Mariné Crespo Zurita | https://github.com/jetzz-uwux/desarrollo-web/commit/b9d0510 |
+| Script de base de datos para pruebas locales | Camila Mariné Crespo Zurita | https://github.com/jetzz-uwux/desarrollo-web/commit/b9d0510 |
+| Documentación CURL y uso de IA - Reseñas | Camila Mariné Crespo Zurita | https://github.com/jetzz-uwux/desarrollo-web/commit/50c7ea3 |
 | | | |
 | | | |
 | | | |
@@ -44,13 +48,14 @@
 # 3. Problemas encontrados
 
 Describir los problemas técnicos encontrados y cómo fueron solucionados.
-
+- **Módulo de Reseñas:** Al realizar las pruebas CURL (POST), el servidor devolvía un error 500 debido a una violación de restricción NOT NULL en las columnas `created_at` y `updated_at`. Se solucionó configurando estas columnas con `@Column(insertable = false, updatable = false)` para que PostgreSQL pueda asignar los timestamps automáticamente mediante la base de datos.
 ---
 
 # 4. Avance funcional
 
 Indicar qué funcionalidades ya se encuentran operativas y cuáles están pendientes.
-
+- **Operativas:** Entidades, repositorios y endpoints básicos (POST y GET) para los módulos de Catálogo, Reseñas y Estadísticas. Configuración de base de datos y script de pruebas locales.
+- **Pendientes:** Endpoints de los módulos de Archivos Colaborativos y Biblioteca Personal. Implementación de métodos PUT, DELETE, búsquedas complejas (filtros) e integración con el Frontend.
 ---
 
 # 5. Uso de IA generativa
@@ -62,6 +67,14 @@ Documentar el uso de herramientas de inteligencia artificial durante el desarrol
 - **Código o contenido generado:** Tabla de pruebas
 - **Modificaciones realizadas por el equipo:** Separación de algunas tareas
 - **Forma en que se verificó el resultado:** Revisando detalladamente la tabla
+
+---
+
+- **Herramienta utilizada:** Gemini
+- **Actividad para la que se utilizó:** Generación de pruebas CURL y Script de Base de Datos.
+- **Código o contenido generado:** Comandos CURL anidados para probar relaciones `@ManyToOne` y script SQL (`datosPruebas.sql`).
+- **Modificaciones realizadas por el equipo:** Ajuste de los JSON en los comandos para coincidir con los IDs del script SQL y estructuración en Markdown.
+- **Forma en que se verificó el resultado:** Ejecutando las pruebas CURL en la terminal WSL y verificando que el servidor devolviera los códigos HTTP 201 y 200.
 
 ---
 
@@ -80,7 +93,7 @@ Describir brevemente la contribución de cada integrante.
 - **Jetzaly Josmery Tello Campos:**: Configuración de Spring, Métodos GET y POST del módulo de catálogo, que abarca clases `Book`, `Author`, `LiterarySeries` y `Genre`, con sus respectivos service, repository y controllers. 
 - **Integrante 2:** 
 - **Integrante 3:**
-- **Integrante 4:**
+- - **Camila Mariné Crespo Zurita:** Desarrollo del módulo de Reseñas y Estadísticas (`Review` y `Rating`). Configuración de persistencia y relaciones `@ManyToOne` con `User` y `Book`. Proyección nativa en JPA para calcular promedios globales (para el RF-16). Creación del archivo `datosPruebas.sql` para homologar el entorno del equipo y documentación de pruebas CURL.
 
 ---
 
