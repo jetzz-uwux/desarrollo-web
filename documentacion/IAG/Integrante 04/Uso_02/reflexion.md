@@ -1,0 +1,2 @@
+**Tipo de uso:** Pruebas CURL y Script de Base de Datos
+**Reflexión del estudiante:** La IA me permitió comprender cómo Spring Boot procesa los JSON anidados (ej. `{"user": {"id": 1}}`) para resolver relaciones `@ManyToOne` sin generar errores 400 Bad Request. Además, la creación del script de datos de prueba (`datosPruebas.sql`) me ayudó a homologar el entorno para que todo el equipo pueda probar sus endpoints sin tener que insertar registros manualmente.
