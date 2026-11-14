@@ -32,7 +32,7 @@
 | Implementar POST y GET - Catalogo|Jetzaly Josmery Tello Campos|https://github.com/jetzz-uwux/desarrollo-web/commit/dd91bb467b31ca28ef31981ae5a603332873cd63|
 | Documentacion de resultados CURL - catálogo|Jetzaly Josmery Tello Campos|https://github.com/jetzz-uwux/desarrollo-web/commit/5c19d8fd8e30768fe40eabff94cc42efa6eba392|
 |Documentación IA |Jetzaly Josmery Tello Campos |https://github.com/jetzz-uwux/desarrollo-web/commit/11871182f34f13d85134bd8fc380b869817454c6|
-| | | |
+|Crear entidades y repositorios - Biblioteca |Juan Luis Gaona Aguirre |https://github.com/jetzz-uwux/desarrollo-web/commit/2600575a1eb3dacf192b98e2648021b5f4032a92 |
 | | | |
 | | | |
 | | | |
@@ -65,6 +65,14 @@ Documentar el uso de herramientas de inteligencia artificial durante el desarrol
 
 ---
 
+- **Herramienta utilizada:** Gemini 
+- **Actividad para la que se utilizó:** Revisión de mensaje de error en BD
+- **Código o contenido generado:** Corrección en application.properties
+- **Modificaciones realizadas por el equipo:** Corrección de credenciales
+- **Forma en que se verificó el resultado:** Ejecución del programa (sin error)
+
+---
+
 - **Herramienta utilizada:**
 - **Actividad para la que se utilizó:**
 - **Código o contenido generado:**
@@ -79,7 +87,7 @@ Describir brevemente la contribución de cada integrante.
 
 - **Jetzaly Josmery Tello Campos:**: Configuración de Spring, Métodos GET y POST del módulo de catálogo, que abarca clases `Book`, `Author`, `LiterarySeries` y `Genre`, con sus respectivos service, repository y controllers. 
 - **Integrante 2:** 
-- **Integrante 3:**
+- **Integrante 3:** Configuración de Spring, Métodos GET y POST del módulo de biblioteca, que abarca clases `CollectionBooks`, `UserCollection` y `UserReadingProgress`, con sus respectivos service, repository y controllers. 
 - **Integrante 4:**
 
 ---
