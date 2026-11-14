@@ -1,0 +1,2 @@
+**Este promtp fue despues de implementar la configuración de la API que corresponde (la cual tambíen usó IA Generativa para agilizar gran parte de su implmentación pero no consideré que sea importante documentar el proceso)**
+excelente, funciona todo adecuadamente, como no hay frontend no puedo ver nada en el navegador pero ahora deberia poder hacer los curl vdd? ahora dame propuestas de comprobación del funcionamiento de la APi con curl para cada una de las fucniones implementadas.
