@@ -18,7 +18,7 @@
 - Documentación de funcionamiento con `CURL` 
 
 ### Modificaciones
-- 
+- Configuración de límites de carga (`spring.servlet.multipart.max-file-size=50MB` y `max-request-size=50MB`) en `application.properties` para permitir la subida de libros en formato PDF
 
 ---
 
@@ -37,11 +37,10 @@
 | Implementar POST y GET - Reseñas/Stats | Camila Mariné Crespo Zurita | https://github.com/jetzz-uwux/desarrollo-web/commit/b9d0510 |
 | Script de base de datos para pruebas locales | Camila Mariné Crespo Zurita | https://github.com/jetzz-uwux/desarrollo-web/commit/b9d0510 |
 | Documentación CURL y uso de IA - Reseñas | Camila Mariné Crespo Zurita | https://github.com/jetzz-uwux/desarrollo-web/commit/50c7ea3 |
-| | | |
-| | | |
-| | | |
-| | | |
-| | | |
+| Crear entidades y repositorios - Archivo colaborativo | Hans Arturo Martínez Romero | https://github.com/jetzz-uwux/desarrollo-web/commits/main |
+| Implementar POST y GET - Archivo colaborativo | Hans Arturo Martínez Romero | https://github.com/jetzz-uwux/desarrollo-web/commits/main |
+| Documentación CURL y uso de IA - Archivo colaborativo | Hans Arturo Martínez Romero | https://github.com/jetzz-uwux/desarrollo-web/commits/main |
+
 
 ---
 
@@ -49,6 +48,10 @@
 
 Describir los problemas técnicos encontrados y cómo fueron solucionados.
 - **Módulo de Reseñas:** Al realizar las pruebas CURL (POST), el servidor devolvía un error 500 debido a una violación de restricción NOT NULL en las columnas `created_at` y `updated_at`. Se solucionó configurando estas columnas con `@Column(insertable = false, updatable = false)` para que PostgreSQL pueda asignar los timestamps automáticamente mediante la base de datos.
+- **Módulo de Archivos Colaborativos:** 
+  1. Al compilar con `./mvnw spring-boot:run` en WSL, se presentó un error por falta de definición de la variable `JAVA_HOME` en el entorno Linux, solucionándose al instalar `openjdk-17-jdk` y exportar la ruta en `~/.bashrc`.
+  2. Durante las pruebas iniciales `POST /api/files/upload`, el servidor devolvió `404 Not Found ("El libro especificado no existe")` porque la base de datos local solo tenía ejecutado el esquema sin los registros base; se resolvió cargando `datosPruebas.sql` en PostgreSQL.
+  3. Se presentó un conflicto de fusión (`merge conflict`) en `application.properties` al sincronizar cambios remotos, el cual se resolvió integrando tanto las credenciales del equipo como los parámetros `multipart` para carga de archivos.
 ---
 
 # 4. Avance funcional
@@ -86,6 +89,14 @@ Documentar el uso de herramientas de inteligencia artificial durante el desarrol
 
 ---
 
+- **Herramienta utilizada:** Gemini
+- **Actividad para la que se utilizó:** Diseño de batería de pruebas CURL (casos de éxito y fallos controlados) para el módulo de Archivos Colaborativos.
+- **Código o contenido generado:** Matriz de pruebas funcionales y negativas (`multipart/form-data` para subida de PDFs, validación de duplicados SHA-256, descarga binaria y títulos alternativos).
+- **Modificaciones realizadas por el equipo:** Adaptación de las rutas de archivos locales en WSL y parámetros de prueba (`bookId=1`, `uploaderUserId=3`).
+- **Forma en que se verificó el resultado:** Ejecución directa de los comandos `curl` contra el puerto `8081` y verificación de los códigos `201 Created`, `200 OK`, `400 Bad Request`, `404 Not Found` y `409 Conflict`, documentados en `curl-archivos.md`.
+
+---
+
 # 6. Participación individual
 
 Describir brevemente la contribución de cada integrante.
@@ -94,6 +105,7 @@ Describir brevemente la contribución de cada integrante.
 - **Integrante 2:** 
 - **Juan Luis Gaona Aguirre:** Configuración de Spring, Métodos GET y POST del módulo de biblioteca, que abarca clases `CollectionBooks`, `UserCollection` y `UserReadingProgress`, con sus respectivos service, repository y controllers. 
 - **Camila Mariné Crespo Zurita:** Desarrollo del módulo de Reseñas y Estadísticas (`Review` y `Rating`). Configuración de persistencia y relaciones `@ManyToOne` con `User` y `Book`. Proyección nativa en JPA para calcular promedios globales (para el RF-16). Creación del archivo `datosPruebas.sql` para homologar el entorno del equipo y documentación de pruebas CURL.
+- **Hans Arturo Martínez Romero:** Desarrollo del módulo de Archivos Colaborativos (`BookFile` y `AlternativeTitle`), implementando sus entidades, repositorios, servicios y controladores REST (`POST /api/files/upload`, `GET /api/files/download/{id}`, `GET /api/files/book/{bookId}` y endpoints de títulos alternativos). Validación de integridad y seguridad de archivos PDF (cabecera binaria real, límite de peso, detección de duplicados mediante SHA-256 e ISBN) y documentación de pruebas CURL y uso de IA.
 
 ---
 
