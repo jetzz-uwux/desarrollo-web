@@ -32,11 +32,11 @@
 | Implementar POST y GET - Catalogo|Jetzaly Josmery Tello Campos|https://github.com/jetzz-uwux/desarrollo-web/commit/dd91bb467b31ca28ef31981ae5a603332873cd63|
 | Documentacion de resultados CURL - catálogo|Jetzaly Josmery Tello Campos|https://github.com/jetzz-uwux/desarrollo-web/commit/5c19d8fd8e30768fe40eabff94cc42efa6eba392|
 |Documentación IA |Jetzaly Josmery Tello Campos |https://github.com/jetzz-uwux/desarrollo-web/commit/11871182f34f13d85134bd8fc380b869817454c6|
+|Crear entidades y repositorios - Biblioteca |Juan Luis Gaona Aguirre |https://github.com/jetzz-uwux/desarrollo-web/commit/2600575a1eb3dacf192b98e2648021b5f4032a92 |
 | Crear entidades y repositorios - Reseñas/Stats | Camila Mariné Crespo Zurita | https://github.com/jetzz-uwux/desarrollo-web/commit/b9d0510 |
 | Implementar POST y GET - Reseñas/Stats | Camila Mariné Crespo Zurita | https://github.com/jetzz-uwux/desarrollo-web/commit/b9d0510 |
 | Script de base de datos para pruebas locales | Camila Mariné Crespo Zurita | https://github.com/jetzz-uwux/desarrollo-web/commit/b9d0510 |
 | Documentación CURL y uso de IA - Reseñas | Camila Mariné Crespo Zurita | https://github.com/jetzz-uwux/desarrollo-web/commit/50c7ea3 |
-| | | |
 | | | |
 | | | |
 | | | |
@@ -70,6 +70,14 @@ Documentar el uso de herramientas de inteligencia artificial durante el desarrol
 
 ---
 
+- **Herramienta utilizada:** Gemini 
+- **Actividad para la que se utilizó:** Revisión de mensaje de error en BD
+- **Código o contenido generado:** Corrección en application.properties
+- **Modificaciones realizadas por el equipo:** Corrección de credenciales
+- **Forma en que se verificó el resultado:** Ejecución del programa (sin error)
+
+---
+
 - **Herramienta utilizada:** Gemini
 - **Actividad para la que se utilizó:** Generación de pruebas CURL y Script de Base de Datos.
 - **Código o contenido generado:** Comandos CURL anidados para probar relaciones `@ManyToOne` y script SQL (`datosPruebas.sql`).
@@ -78,22 +86,14 @@ Documentar el uso de herramientas de inteligencia artificial durante el desarrol
 
 ---
 
-- **Herramienta utilizada:**
-- **Actividad para la que se utilizó:**
-- **Código o contenido generado:**
-- **Modificaciones realizadas por el equipo:**
-- **Forma en que se verificó el resultado:**
-
----
-
 # 6. Participación individual
 
 Describir brevemente la contribución de cada integrante.
 
-- **Jetzaly Josmery Tello Campos:**: Configuración de Spring, Métodos GET y POST del módulo de catálogo, que abarca clases `Book`, `Author`, `LiterarySeries` y `Genre`, con sus respectivos service, repository y controllers. 
+- **Jetzaly Josmery Tello Campos:** Configuración de Spring, Métodos GET y POST del módulo de catálogo, que abarca clases `Book`, `Author`, `LiterarySeries` y `Genre`, con sus respectivos service, repository y controllers. 
 - **Integrante 2:** 
-- **Integrante 3:**
-- - **Camila Mariné Crespo Zurita:** Desarrollo del módulo de Reseñas y Estadísticas (`Review` y `Rating`). Configuración de persistencia y relaciones `@ManyToOne` con `User` y `Book`. Proyección nativa en JPA para calcular promedios globales (para el RF-16). Creación del archivo `datosPruebas.sql` para homologar el entorno del equipo y documentación de pruebas CURL.
+- **Juan Luis Gaona Aguirre:** Configuración de Spring, Métodos GET y POST del módulo de biblioteca, que abarca clases `CollectionBooks`, `UserCollection` y `UserReadingProgress`, con sus respectivos service, repository y controllers. 
+- **Camila Mariné Crespo Zurita:** Desarrollo del módulo de Reseñas y Estadísticas (`Review` y `Rating`). Configuración de persistencia y relaciones `@ManyToOne` con `User` y `Book`. Proyección nativa en JPA para calcular promedios globales (para el RF-16). Creación del archivo `datosPruebas.sql` para homologar el entorno del equipo y documentación de pruebas CURL.
 
 ---
 
