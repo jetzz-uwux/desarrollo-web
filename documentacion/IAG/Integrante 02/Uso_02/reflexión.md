@@ -1,0 +1,1 @@
+El usar IA para agilizar los procesos de pruebas y estructuración fue bastante útil, sin duda estas herramientas han cambiado por completo la forma en la que se desarrollan los sistemas, brindando máxima eficiencia a personas con conocimientos tecnicos suficientes para hacer el trabajo
