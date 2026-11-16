@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import mx.uv.booknest.models.Author;
 import mx.uv.booknest.repository.AuthorRepository;
+import mx.uv.booknest.repository.BookAuthorRepository;
 
 /**
  * 
@@ -20,9 +21,11 @@ import mx.uv.booknest.repository.AuthorRepository;
 public class AuthorService {
 
     private final AuthorRepository repository;
+    private final BookAuthorRepository bookAuthorRepository;
 
-    public AuthorService(AuthorRepository repository) {
+    public AuthorService(AuthorRepository repository, BookAuthorRepository bookAuthorRepository) {
         this.repository = repository;
+        this.bookAuthorRepository = bookAuthorRepository;
     }
 
     public List<Author> listar() {
@@ -42,6 +45,28 @@ public class AuthorService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre es obligatorio");
         }
         return repository.save(author);
+    }
+
+    /* Actualiza un autor en específico */
+    public Author actualizar(Long id, Author datos){
+        Author existente = obtenerPorId(id);
+
+        if (datos.getName() == null || datos.getName().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre es obligatorio");
+        }
+
+        existente.setName(datos.getName());
+
+        return repository.save(existente);
+    }
+
+    /* Elimina un autor en específico */
+    public void eliminar(Long id) {
+        Author existente = obtenerPorId(id);
+        if (bookAuthorRepository.existsByAuthorId(id)){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "No se puede eliminar el autor porque está asociado a uno o más libros");
+        }
+        repository.delete(existente);
     }
 
 }

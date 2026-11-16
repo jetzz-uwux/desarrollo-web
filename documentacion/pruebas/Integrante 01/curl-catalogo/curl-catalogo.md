@@ -64,7 +64,7 @@ curl -i -X GET "http://localhost:8081/api/authors/3"
 ```
 ![Autor que no existe](image-9.png)
 
-## Series
+## POST Y GET  Series
 
 ### Crear serie
 ```bash
@@ -145,3 +145,6 @@ curl -i -X GET "http://localhost:8081/api/books/1"
 curl -i -X GET "http://localhost:8081/api/books/3"
 ```
 ![Libro que no existe](image-22.png)
+
+---
+# CURL - Tercera Entrega

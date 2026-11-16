@@ -10,5 +10,6 @@ import mx.uv.booknest.models.Review;
  * @author Camila
  */
 public interface ReviewRepository extends JpaRepository<Review, Long> {
+    boolean existsByBookId(Long bookId);
     List<Review> findByBookIdOrderByIdDesc(Long bookId);
 }

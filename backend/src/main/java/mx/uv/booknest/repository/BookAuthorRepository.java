@@ -10,5 +10,5 @@ import mx.uv.booknest.models.BookAuthor;
  */
 
 public interface BookAuthorRepository extends JpaRepository <BookAuthor, Long> {
-
+    boolean existsByAuthorId (Long authorId);
 }

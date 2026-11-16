@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import mx.uv.booknest.models.LiterarySeries;
+import mx.uv.booknest.repository.BookSeriesRepository;
 import mx.uv.booknest.repository.LiterarySeriesRepository;
 
 /**
@@ -19,9 +20,11 @@ import mx.uv.booknest.repository.LiterarySeriesRepository;
 @Service
 public class LiterarySeriesService {
     private final LiterarySeriesRepository repository;
+    private final BookSeriesRepository bookSeriesRepository;
 
-    public LiterarySeriesService(LiterarySeriesRepository repository){
+    public LiterarySeriesService(LiterarySeriesRepository repository, BookSeriesRepository bookSeriesRepository){
         this.repository=repository;
+        this.bookSeriesRepository=bookSeriesRepository;
     }
 
     public List<LiterarySeries> listar(){
@@ -44,6 +47,32 @@ public class LiterarySeriesService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tipo de serie no valido, los valores permitidos son: bilogia, trilogia o saga");
         }
         return repository.save(series);
+    }
+
+    public LiterarySeries actualizar(Long id, LiterarySeries datos){
+        LiterarySeries existente = obtenerPorId(id);
+
+        if (datos.getName() == null || datos.getName().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre es obligatorio");
+        }
+
+        else if (datos.getSeriesType()==null || !(datos.getSeriesType().equals("bilogia") || datos.getSeriesType().equals("trilogia") || datos.getSeriesType().equals("saga"))){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tipo de serie no valido, los valores permitidos son: bilogia, trilogia o saga");
+        }
+
+        existente.setName(datos.getName());
+        existente.setSeriesType(datos.getSeriesType());
+        return repository.save(existente);
+    }
+
+    public void eliminar(Long id) {
+        LiterarySeries existente = obtenerPorId(id);
+        
+        if (bookSeriesRepository.existsBySeriesId(id)){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "No se puede eliminar esta serie porque está asociado a uno o más libros");
+        }
+
+        repository.delete(existente);
     }
 
 }

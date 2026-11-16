@@ -10,5 +10,5 @@ import mx.uv.booknest.models.BookSeries;
  */
 
 public interface BookSeriesRepository extends JpaRepository <BookSeries,Long> {
-
+    boolean existsBySeriesId (Long seriesId);
 }

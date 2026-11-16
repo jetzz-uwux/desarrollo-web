@@ -11,7 +11,9 @@ import mx.uv.booknest.models.Rating;
  * @author Camila
  */
 public interface RatingRepository extends JpaRepository<Rating, Long> {
-    
+
+    boolean existsByBookId(Long bookId);
+
     // Proyección para calcular promedios globales directamente en la consulta
     public interface GlobalStat {
         Long getBookId();
