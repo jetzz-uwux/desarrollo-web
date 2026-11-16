@@ -22,7 +22,7 @@
 | GET | `/api/authors/{id}` | Un autor | 200, 404 |
 | POST | `/api/authors` | Crea un autor | 201, 400 |
 | PUT | `/api/authors/{id}` | Modifica un autor | 200, 400, 404 |
-| DELETE | `/api/authors/{id}` | Elimina un autor | 204, 404, 409|
+| DELETE | `/api/authors/{id}` | Elimina un autor | 204, 404, 409 |
 | GET | `/api/series` | Lista de series | 200 |
 | GET | `/api/series/{id}` | Serie con sus libros en orden de lectura | 200, 404 |
 | POST | `/api/series` | Crea una serie | 201, 400 |
@@ -33,5 +33,8 @@
 | GET | `/api/books` | Lista con búsqueda, filtros y orden | 200 |
 | GET | `/api/books/{id}` | Ficha completa | 200, 404 |
 | POST | `/api/books` | Crea un libro | 201, 400 |
+| PUT | `/api/books/{id}` | Modifica un libro | 200, 400, 404 |
+| DELETE | `/api/books/{id}` | Elimina un libro | 204, 404, 409 |
+| GET | `/api/books/series/{seriesId}` | Lista los libros de una serie en orden de lectura | 200 |
 | POST | `/api/books/{id}/authors` | Liga un autor con un libro (propuesta) | 201, 404, 409 |
 | POST | `/api/books/{id}/genres` | Liga un género con un libro (propuesta) | 201, 404, 409 |

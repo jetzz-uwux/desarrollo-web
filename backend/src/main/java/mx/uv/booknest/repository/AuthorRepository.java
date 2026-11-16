@@ -1,5 +1,7 @@
 package mx.uv.booknest.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import mx.uv.booknest.models.Author;
 
@@ -10,5 +12,5 @@ import mx.uv.booknest.models.Author;
  */
 
 public interface AuthorRepository extends JpaRepository <Author, Long> {
-
+    List<Author> findByNameContainingIgnoreCase(String nombre);
 }

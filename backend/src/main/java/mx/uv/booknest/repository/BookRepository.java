@@ -1,7 +1,10 @@
 package mx.uv.booknest.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import mx.uv.booknest.models.Book;
+import mx.uv.booknest.models.BookGenre;
 
 /**
  * 
@@ -10,5 +13,5 @@ import mx.uv.booknest.models.Book;
  */
 
 public interface BookRepository extends JpaRepository <Book, Long>  {
-
+    List<Book> findByMainTitleContainingIgnoreCase(String titulo);
 }

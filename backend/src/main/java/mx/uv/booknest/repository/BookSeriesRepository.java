@@ -1,5 +1,7 @@
 package mx.uv.booknest.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import mx.uv.booknest.models.BookSeries;
 
@@ -11,4 +13,6 @@ import mx.uv.booknest.models.BookSeries;
 
 public interface BookSeriesRepository extends JpaRepository <BookSeries,Long> {
     boolean existsBySeriesId (Long seriesId);
+    List<BookSeries> findBySeriesIdIn(List<Long> seriesIds);
+    List<BookSeries> findBySeriesIdOrderByReadingOrderAsc(Long seriesId);
 }
