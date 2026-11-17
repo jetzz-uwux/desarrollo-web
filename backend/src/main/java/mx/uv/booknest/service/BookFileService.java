@@ -10,6 +10,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HexFormat;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.core.io.Resource;
@@ -51,11 +52,45 @@ public class BookFileService {
         }
     }
 
-    public List<BookFile> listarTodos() {
+    public List<BookFile> listarConFiltros(Long bookId, String language, String isbn, String q) {
+        if (language != null && !language.isBlank()) {
+            validarIdioma(language);
+        }
+
+        if (isbn != null && !isbn.isBlank()) {
+            String isbnNorm = normalizarYValidarIsbn(isbn);
+            return fileRepository.findByEditionIsbn(isbnNorm).map(List::of).orElseGet(List::of);
+        }
+
+        if (bookId != null && language != null && !language.isBlank()) {
+            if (!bookRepository.existsById(bookId)) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El libro especificado no existe");
+            }
+            return fileRepository.findByBookIdAndLanguage(bookId, language);
+        }
+
+        if (bookId != null) {
+            if (!bookRepository.existsById(bookId)) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El libro especificado no existe");
+            }
+            return fileRepository.findByBookId(bookId);
+        }
+
+        if (language != null && !language.isBlank()) {
+            return fileRepository.findByLanguage(language);
+        }
+
+        if (q != null && !q.isBlank()) {
+            return fileRepository.findByOriginalFilenameContainingIgnoreCase(q.trim());
+        }
+
         return fileRepository.findAll();
     }
 
     public List<BookFile> listarPorLibro(Long bookId) {
+        if (!bookRepository.existsById(bookId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El libro especificado no existe");
+        }
         return fileRepository.findByBookId(bookId);
     }
 
@@ -91,12 +126,14 @@ public class BookFileService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El contenido del archivo no corresponde a un PDF real");
         }
 
-        if (language == null || (!language.equals("es") && !language.equals("en"))) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El idioma debe ser 'es' (español) o 'en' (inglés)");
-        }
+        validarIdioma(language);
 
         if (isAuthorized == null || !isAuthorized) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Solo se aceptan archivos autorizados, propios o de dominio público (RNF-12)");
+        }
+
+        if (bookId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El ID del libro es obligatorio");
         }
 
         Book book = bookRepository.findById(bookId)
@@ -110,10 +147,7 @@ public class BookFileService {
 
         String isbnNormalizado = null;
         if (editionIsbn != null && !editionIsbn.isBlank()) {
-            isbnNormalizado = editionIsbn.replaceAll("[\\s-]", "");
-            if (!isbnNormalizado.matches("^[0-9Xx]{10,17}$")) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El formato del ISBN no es válido");
-            }
+            isbnNormalizado = normalizarYValidarIsbn(editionIsbn);
             if (fileRepository.findByEditionIsbn(isbnNormalizado).isPresent()) {
                 throw new ResponseStatusException(HttpStatus.CONFLICT, "Ya existe un archivo registrado con ese ISBN de edición");
             }
@@ -151,6 +185,59 @@ public class BookFileService {
         return fileRepository.save(bookFile);
     }
 
+    public BookFile actualizarMetadatos(Long id, BookFile datosActualizados) {
+        BookFile existente = obtenerPorId(id);
+
+        if (datosActualizados == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Los datos de actualización son obligatorios");
+        }
+
+        if (datosActualizados.getLanguage() != null) {
+            validarIdioma(datosActualizados.getLanguage());
+            existente.setLanguage(datosActualizados.getLanguage());
+        }
+
+        if (datosActualizados.getEditionIsbn() != null) {
+            if (datosActualizados.getEditionIsbn().isBlank()) {
+                existente.setEditionIsbn(null);
+            } else {
+                String isbnNorm = normalizarYValidarIsbn(datosActualizados.getEditionIsbn());
+                Optional<BookFile> duplicado = fileRepository.findByEditionIsbn(isbnNorm);
+                if (duplicado.isPresent() && !duplicado.get().getId().equals(id)) {
+                    throw new ResponseStatusException(HttpStatus.CONFLICT, "Ya existe otro archivo registrado con ese ISBN de edición");
+                }
+                existente.setEditionIsbn(isbnNorm);
+            }
+        }
+
+        if (datosActualizados.getOriginalFilename() != null) {
+            String nombreLimpio = StringUtils.cleanPath(datosActualizados.getOriginalFilename().trim());
+            if (nombreLimpio.isBlank() || nombreLimpio.contains("..") || !nombreLimpio.toLowerCase().endsWith(".pdf")) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre de archivo debe ser válido y terminar en .pdf");
+            }
+            existente.setOriginalFilename(nombreLimpio);
+        }
+
+        if (datosActualizados.getIsAuthorized() != null) {
+            existente.setIsAuthorized(datosActualizados.getIsAuthorized());
+        }
+
+        return fileRepository.save(existente);
+    }
+
+    public void eliminar(Long id) {
+        BookFile existente = obtenerPorId(id);
+        Path filePath = this.storageLocation.resolve(existente.getFilePath()).normalize();
+        fileRepository.delete(existente);
+        try {
+            if (filePath.startsWith(this.storageLocation)) {
+                Files.deleteIfExists(filePath);
+            }
+        } catch (IOException ex) {
+            // El registro en BD ya fue eliminado; se ignora si el archivo físico no estaba en disco
+        }
+    }
+
     public Resource cargarArchivoParaDescarga(BookFile bookFile) {
         if (bookFile.getIsAuthorized() == null || !bookFile.getIsAuthorized()) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Este archivo no está autorizado para su descarga");
@@ -171,6 +258,20 @@ public class BookFileService {
         }
     }
 
+    private void validarIdioma(String language) {
+        if (language == null || (!language.equals("es") && !language.equals("en"))) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El idioma debe ser 'es' (español) o 'en' (inglés)");
+        }
+    }
+
+    private String normalizarYValidarIsbn(String editionIsbn) {
+        String isbnNormalizado = editionIsbn.replaceAll("[\\s-]", "");
+        if (!isbnNormalizado.matches("^[0-9Xx]{10,17}$")) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El formato del ISBN no es válido");
+        }
+        return isbnNormalizado;
+    }
+
     private boolean esPdfReal(MultipartFile file) {
         try (InputStream is = file.getInputStream()) {
             byte[] header = new byte[5];
@@ -178,7 +279,6 @@ public class BookFileService {
             if (read < 5) {
                 return false;
             }
-            // Verifica la firma mágica "%PDF-"
             return header[0] == 0x25 && header[1] == 0x50 && header[2] == 0x44 && header[3] == 0x46 && header[4] == 0x2D;
         } catch (IOException e) {
             return false;

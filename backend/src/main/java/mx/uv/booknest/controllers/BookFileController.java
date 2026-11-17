@@ -7,9 +7,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -33,8 +36,12 @@ public class BookFileController {
     }
 
     @GetMapping
-    public List<BookFile> listar() {
-        return service.listarTodos();
+    public List<BookFile> listar(
+            @RequestParam(value = "bookId", required = false) Long bookId,
+            @RequestParam(value = "language", required = false) String language,
+            @RequestParam(value = "isbn", required = false) String isbn,
+            @RequestParam(value = "q", required = false) String q) {
+        return service.listarConFiltros(bookId, language, isbn, q);
     }
 
     @GetMapping("/{id}")
@@ -57,6 +64,17 @@ public class BookFileController {
             @RequestParam(value = "editionIsbn", required = false) String editionIsbn,
             @RequestParam(value = "isAuthorized", defaultValue = "true") Boolean isAuthorized) {
         return service.subirArchivo(file, bookId, uploaderUserId, language, editionIsbn, isAuthorized);
+    }
+
+    @PutMapping("/{id}")
+    public BookFile actualizar(@PathVariable Long id, @RequestBody BookFile datosActualizados) {
+        return service.actualizarMetadatos(id, datosActualizados);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id) {
+        service.eliminar(id);
     }
 
     @GetMapping("/download/{id}")

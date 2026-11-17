@@ -11,9 +11,11 @@ import mx.uv.booknest.models.BookFile;
  * @author Hans Arturo
  */
 public interface BookFileRepository extends JpaRepository<BookFile, Long> {
-    boolean existsByBookId (Long bookId);
+    boolean existsByBookId(Long bookId);
     List<BookFile> findByBookId(Long bookId);
+    List<BookFile> findByLanguage(String language);
     List<BookFile> findByBookIdAndLanguage(Long bookId, String language);
+    List<BookFile> findByOriginalFilenameContainingIgnoreCase(String query);
     Optional<BookFile> findByChecksumSha256(String checksumSha256);
     Optional<BookFile> findByEditionIsbn(String editionIsbn);
 }

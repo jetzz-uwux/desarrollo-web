@@ -12,5 +12,8 @@ import mx.uv.booknest.models.AlternativeTitle;
  */
 public interface AlternativeTitleRepository extends JpaRepository<AlternativeTitle, Long> {
     List<AlternativeTitle> findByBookId(Long bookId);
+    List<AlternativeTitle> findByLanguage(String language);
+    List<AlternativeTitle> findByBookIdAndLanguage(Long bookId, String language);
+    List<AlternativeTitle> findByTitleContainingIgnoreCase(String query);
     Optional<AlternativeTitle> findByBookIdAndTitleIgnoreCaseAndLanguage(Long bookId, String title, String language);
 }

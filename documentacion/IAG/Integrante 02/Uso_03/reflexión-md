@@ -1,0 +1,3 @@
+**Tipo de uso:** Desarrollo de endpoints (PUT, DELETE, Filtros), Validación HTTP y Pruebas de Persistencia
+**Reflexión del estudiante:**
+El uso de la IA me permitió identificar rápidamente por qué los datos desaparecían al reiniciar la aplicación (`spring.jpa.hibernate.ddl-auto=create` recreaba el esquema en cada arranque) y corregirlo a `update` para garantizar la persistencia real en PostgreSQL. Además, facilitó estructurar las validaciones en la capa de servicio para devolver los códigos HTTP semánticos exactos (`400`, `404` y `409`), sincronizar el borrado de metadatos con la eliminación física del archivo PDF en el servidor y comprobar con `curl` que las modificaciones realizadas con `PUT` se mantienen intactas tras apagar y volver a levantar Spring Boot.
