@@ -3,8 +3,8 @@ package mx.uv.booknest.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import mx.uv.booknest.models.Book;
-import mx.uv.booknest.models.BookGenre;
 
 /**
  * 

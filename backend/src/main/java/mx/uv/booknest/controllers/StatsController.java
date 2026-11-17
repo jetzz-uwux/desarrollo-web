@@ -3,10 +3,14 @@ package mx.uv.booknest.controllers;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,12 +18,10 @@ import mx.uv.booknest.models.Rating;
 import mx.uv.booknest.repository.RatingRepository;
 import mx.uv.booknest.service.RatingService;
 
-/**
- * @author Camila
- */
 @RestController
 @RequestMapping("/api/stats")
 public class StatsController {
+
     private final RatingService service;
 
     public StatsController(RatingService service) {
@@ -32,8 +34,29 @@ public class StatsController {
         return service.crear(rating);
     }
 
+    @PutMapping("/rating/{id}")
+    public Rating actualizarRating(@PathVariable Long id, @RequestBody Rating rating) {
+        return service.actualizar(id, rating);
+    }
+
+    @DeleteMapping("/rating/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminarRating(@PathVariable Long id) {
+        service.eliminar(id);
+    }
+
     @GetMapping("/global")
-    public List<RatingRepository.GlobalStat> obtenerGlobales() {
-        return service.obtenerEstadisticasGlobales();
+    public List<Object> obtenerGlobales(@RequestParam(required = false) Long bookId) {
+        return service.obtenerEstadisticasGlobales(bookId);
+    }
+
+    @GetMapping("/most-read")
+    public List<RatingRepository.PopularBookStat> obtenerMasLeidos() {
+        return service.obtenerMasLeidos();
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<RatingRepository.UserPersonalStat> obtenerPersonales(@PathVariable Long userId) {
+        return service.obtenerEstadisticasPersonales(userId);
     }
 }
