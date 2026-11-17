@@ -104,6 +104,7 @@ Describir brevemente la contribución de cada integrante.
 - **Jetzaly Josmery Tello Campos:** Configuración de Spring, Métodos GET y POST del módulo de catálogo, que abarca clases `Book`, `Author`, `LiterarySeries` y `Genre`, con sus respectivos service, repository y controllers. 
 - **Integrante 2:** 
 - **Juan Luis Gaona Aguirre:** Configuración de Spring, Métodos GET y POST del módulo de biblioteca, que abarca clases `CollectionBooks`, `UserCollection` y `UserReadingProgress`, con sus respectivos service, repository y controllers. 
+Se añaden metodos PUT y DELETE en `Users` y `UserCollection` para borrar y actualizar datos.
 - **Camila Mariné Crespo Zurita:** Desarrollo del módulo de Reseñas y Estadísticas (`Review` y `Rating`). Configuración de persistencia y relaciones `@ManyToOne` con `User` y `Book`. Proyección nativa en JPA para calcular promedios globales (para el RF-16). Creación del archivo `datosPruebas.sql` para homologar el entorno del equipo y documentación de pruebas CURL.
 - **Hans Arturo Martínez Romero:** Desarrollo del módulo de Archivos Colaborativos (`BookFile` y `AlternativeTitle`), implementando sus entidades, repositorios, servicios y controladores REST (`POST /api/files/upload`, `GET /api/files/download/{id}`, `GET /api/files/book/{bookId}` y endpoints de títulos alternativos). Validación de integridad y seguridad de archivos PDF (cabecera binaria real, límite de peso, detección de duplicados mediante SHA-256 e ISBN) y documentación de pruebas CURL y uso de IA.
 
@@ -113,8 +114,6 @@ Describir brevemente la contribución de cada integrante.
 
 Indicar las tareas que se realizarán antes del siguiente reporte.
 
-- Implementación de PUT y DELETE
-- Incorporación de filtros (q) 
 - Validación respuestas HTTP
 - Integrar observaciones del profesor si es que hay retroalimentación al respecto
 - Probar persistencia de datos

@@ -47,13 +47,17 @@ public class UserCollectionService {
         return resultado.get();
     }
 
-    // Crear nueva colección
-    public UserCollection crearColeccion(UserCollection collection, Long userId) {
+    // Guardar o crear colección
+    public UserCollection guardarColeccion(UserCollection collection) {
         if (collection.getName() == null || collection.getName().isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre de la colección es obligatorio");
         }
 
-        Users user = usersRepository.findById(userId)
+        if (collection.getUser() == null || collection.getUser().getId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El usuario es obligatorio para la colección");
+        }
+
+        Users user = usersRepository.findById(collection.getUser().getId())
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
 
         collection.setUser(user);
@@ -80,5 +84,26 @@ public class UserCollectionService {
         collectionBook.setBook(book);
 
         return collectionBooksRepository.save(collectionBook);
+    }
+
+    // Actualizar colección
+    public void actualizarColeccion(Long id, UserCollection collectionDetails) {
+        UserCollection collection = collectionRepository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Colección no encontrada"));
+
+        if (collectionDetails.getName() != null && !collectionDetails.getName().isBlank()) {
+            collection.setName(collectionDetails.getName());
+        }
+        collection.setUpdatedAt(OffsetDateTime.now());
+
+        collectionRepository.save(collection);
+    }
+
+    // Eliminar colección
+    public void eliminarColeccion(Long id) {
+        if (!collectionRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Colección no encontrada");
+        }
+        collectionRepository.deleteById(id);
     }
 }
