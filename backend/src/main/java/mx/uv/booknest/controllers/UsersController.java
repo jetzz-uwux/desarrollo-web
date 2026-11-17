@@ -13,7 +13,7 @@ import mx.uv.booknest.service.UserService;
 @RequestMapping("/api/users")
 public class UsersController {
 
-    // Inyección de dependencias por campo que ya conoces
+    // Autowired para inyectar las dependencias
     @Autowired
     private UserService userService;
 
@@ -36,4 +36,19 @@ public class UsersController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> actualizar(@PathVariable Long id, @RequestBody Users user) {
+        userService.actualizarUsuario(id, user);
+        return ResponseEntity.ok("Usuario actualizado exitosamente");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> eliminar(@PathVariable Long id) {
+        userService.eliminarUsuario(id);
+        return ResponseEntity.ok("Usuario eliminado exitosamente");
+    }
+
+
+
 }

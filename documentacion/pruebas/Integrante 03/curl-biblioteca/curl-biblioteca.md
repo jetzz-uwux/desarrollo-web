@@ -17,3 +17,27 @@ curl -X GET http://localhost:8081/api/collections -H "Content-Type: application/
 ### Prueba 4:
 curl -X POST http://localhost:8081/api/progress/user/1/book/1 -H "Content-Type: application/json" -d "{\"currentPage\": 45, \"status\": \"leyendo\"}"
 ![Respuesta](Diapositiva4.PNG)
+
+
+# CURL - Tercera Entrega
+## DELETE y PUT Géneros
+### Prueba 5:
+curl -X PUT http://localhost:8081/api/users/1 -H "Content-Type: application/json" -d "{\"username\":\"juanluis\",\"email\":\"juan.actualizado@gmail.com\",\"passwordHash\":\"actualizado123\",\"bio\":\"Estudiante actualizado\"}"
+![Respuesta](Diapositiva5.PNG)
+
+### Prueba 6:
+curl -X DELETE http://localhost:8081/api/users/3 -H "Content-Type: application/json"
+![Respuesta](Diapositiva6.PNG)
+
+### Prueba 7:
+curl -X POST http://localhost:8081/api/collections -H "Content-Type: application/json" -d "{\"name\":\"Favoritos de Camila\",\"user\":{\"id\":1}}"
+![Respuesta](Diapositiva7.PNG)
+
+### Prueba 8:
+curl -X PUT http://localhost:8081/api/collections/1 -H "Content-Type: application/json" -d "{\"name\":\"Lecturas Pendientes\"}"
+![Respuesta](Diapositiva8.PNG)
+
+### Prueba 9:
+curl -X DELETE http://localhost:8081/api/collections/1 -H "Content-Type: application/json"
+![Respuesta](Diapositiva9.PNG)
+

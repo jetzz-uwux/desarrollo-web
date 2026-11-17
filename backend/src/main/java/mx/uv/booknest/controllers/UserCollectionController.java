@@ -3,6 +3,7 @@ package mx.uv.booknest.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,4 +24,26 @@ public class UserCollectionController {
         List<UserCollection> collections = collectionService.listarTodas();
         return ResponseEntity.ok(collections);
     }
+
+    
+    @PostMapping
+    public ResponseEntity<String> crearColeccion(@RequestBody UserCollection collection) {
+        collectionService.guardarColeccion(collection);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Colección creada exitosamente");
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> actualizarColeccion(@PathVariable Long id, @RequestBody UserCollection collection) {
+        collectionService.actualizarColeccion(id, collection);
+        return ResponseEntity.ok("Colección actualizada exitosamente");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> eliminarColeccion(@PathVariable Long id) {
+        collectionService.eliminarColeccion(id);
+        return ResponseEntity.ok("Colección eliminada exitosamente");
+    }
+
+
+
 }
