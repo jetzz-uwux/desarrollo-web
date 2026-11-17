@@ -61,6 +61,35 @@ public class UserService {
             }
         }
 
-        return false; //Login fallido
+        return false; // Login fallido
+    }
+
+    // Actualizar usuario
+    public void actualizarUsuario(Long id, Users userDetails) {
+        Users user = usersRepository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+        //Revisar si existe antes de hacer la actualizacion
+        if (userDetails.getUsername() != null && !userDetails.getUsername().isBlank()) {
+            user.setUsername(userDetails.getUsername());
+        }
+        if (userDetails.getEmail() != null && !userDetails.getEmail().isBlank()) {
+            user.setEmail(userDetails.getEmail());
+        }
+        if (userDetails.getPasswordHash() != null && !userDetails.getPasswordHash().isEmpty()) {
+            user.setPasswordHash(userDetails.getPasswordHash());
+        }
+        user.setBio(userDetails.getBio());
+        user.setAvatarUrl(userDetails.getAvatarUrl());
+        user.setUpdatedAt(OffsetDateTime.now());
+        
+        usersRepository.save(user);
+    }
+
+    // Eliminar usuario
+    public void eliminarUsuario(Long id) {
+        if (!usersRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado");
+        }
+        usersRepository.deleteById(id);
     }
 }
