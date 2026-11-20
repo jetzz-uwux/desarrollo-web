@@ -3,6 +3,7 @@ package mx.uv.booknest.controllers;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import mx.uv.booknest.service.BookService;
  * 
  */
 
+@CrossOrigin(origins = "*")
 @RestController 
 @RequestMapping("/api/books")
 public class BookController {
@@ -62,7 +64,6 @@ public class BookController {
     }
 
     @GetMapping
-    
     public List<Book> listar(
             @RequestParam(required = false) String q,
             @RequestParam(required = false) Integer minPages,

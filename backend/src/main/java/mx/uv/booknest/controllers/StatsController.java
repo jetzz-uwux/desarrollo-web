@@ -3,6 +3,7 @@ package mx.uv.booknest.controllers;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import mx.uv.booknest.models.Rating;
 import mx.uv.booknest.repository.RatingRepository;
 import mx.uv.booknest.service.RatingService;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/stats")
 public class StatsController {
