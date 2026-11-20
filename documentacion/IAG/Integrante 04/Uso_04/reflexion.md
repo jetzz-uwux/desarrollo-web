@@ -1,0 +1,5 @@
+# Reflexión del Estudiante - Uso 04 (Integrante 04 - Camila)
+
+Al integrar la interfaz que tenía elemetnos de HTML, CSS y JavaScript con la API REST de BookNest, me encontré con errores de comunicación que no ocurrían al probar los endpoints con `curl` en la terminal. Consultar el comportamiento del Whitelabel Error Page y el bloqueo de Cross-Origin en la pestaña Network me permitió entender la diferencia entre hacer peticiones desde un cliente de consola y desde un navegador web que se encuentra limitado o sujeto a políticas de origen.
+
+Tras agregar `@CrossOrigin(origins = "*")` en los controladores de libros, reseñas y estadísticas, y corregir el puerto base (`8081`) junto con la estructura de los objetos JSON en `api.js`, las peticiones `fetch` se completaron con código `200` y `201`, logrando que los formularios, filtros y tablas funcionaran correctamente y mostraran alertas visuales tanto de confirmación como de error.

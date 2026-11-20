@@ -1,0 +1,5 @@
+# Respuesta de IA - Uso 04 (Integrante 04 - Camila)
+
+1. **Diagnóstico del error `404` en `localhost:8081`:** El mensaje *Whitelabel Error Page* confirma que Spring Boot inició correctamente en el puerto `8081`, pero al ser una API REST sin vistas en la ruta raíz `/`, devuelve `404`. El frontend debe servirse de forma independiente (por ejemplo, con `python3 -m http.server 5500` dentro de `frontend/`) y consumirse en `http://localhost:5500`.
+2. **Solución al bloqueo entre orígenes (`@CrossOrigin`):** Como el frontend corre en el puerto `5500` y el backend en el `8081`, el navegador bloquea la lectura de las respuestas `fetch` por seguridad entre orígenes. Para permitirlo, se añade `@CrossOrigin(origins = "*")` encima de `@RestController` en `BookController.java`, `ReviewController.java` y `StatsController.java`.
+3. **Ajuste de puerto y estructura JSON en `fetch`:** Se verificó que `API_BASE_URL` en `frontend/js/api.js` apunte a `http://localhost:8081` y que los objetos enviados en `POST` y `PUT` respeten las relaciones `@ManyToOne` de JPA (`book: { id }`, `user: { id }`) y los nombres de columnas de las proyecciones (`mainTitle`, `content`, `score`).
