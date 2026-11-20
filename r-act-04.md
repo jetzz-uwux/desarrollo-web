@@ -49,7 +49,7 @@
 ## 6. Participación individual
 - **Integrante 1:** *(Completar)*
 - **Integrante 2:** *(Completar)*
-- **Integrante 3:** *(Completar)*
+- **Integrante 3 (Juan Luis Gaona Aguirre):** Frontend HTML/JS de login y pagina de usuario, pagina de colecciones del usuario. Implementacion de funciones fetch para recabar datos del backend creado.
 - **Integrante 4 (Camila Mariné Crespo Zurita):** Desarrollo de páginas, formularios y tablas en HTML/CSS (`index.html`, `styles.css`), implementación de funciones `fetch` (`api.js`, `app.js`), notificaciones de errores y confirmaciones, habilitación de `@CrossOrigin` e integración frontend-backend del módulo de reseñas, calificaciones y estadísticas.
 
 ## 7. Próximas actividades

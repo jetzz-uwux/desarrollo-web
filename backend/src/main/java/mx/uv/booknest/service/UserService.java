@@ -92,4 +92,18 @@ public class UserService {
         }
         usersRepository.deleteById(id);
     }
+
+    public Users buscarPorEmail(String email) {
+    if (email == null || email.isBlank()) {
+        return null;
+    }
+    List<Users> todosLosUsuarios = usersRepository.findAll();
+    for (Users u : todosLosUsuarios) {
+        if (u.getEmail() != null && u.getEmail().equalsIgnoreCase(email)) {
+            return u;
+        }
+    }
+    return null;
+}
+
 }

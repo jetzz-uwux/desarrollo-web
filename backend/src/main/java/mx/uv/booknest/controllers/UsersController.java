@@ -27,11 +27,12 @@ public class UsersController {
 
     // POST /api/users/login : Iniciar sesión en la plataforma
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Users credentials) {
+    public ResponseEntity<?> login(@RequestBody Users credentials) {
         boolean esValido = userService.validarLogin(credentials.getEmail(), credentials.getPasswordHash());
-        
+
         if (esValido) {
-            return ResponseEntity.ok("Login exitoso");
+            Users usuario = userService.buscarPorEmail(credentials.getEmail());
+            return ResponseEntity.ok(usuario);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
         }
@@ -48,7 +49,5 @@ public class UsersController {
         userService.eliminarUsuario(id);
         return ResponseEntity.ok("Usuario eliminado exitosamente");
     }
-
-
 
 }

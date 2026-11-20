@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookNest - Perfil</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/perfilScript.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <h1>Perfil de Usuario</h1>
+            <a href="login.html" class="btn btn-outline">Ir a login / registro</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div id="mensaje" class="alert hidden"></div>
+
+        <section class="card">
+            <p id="estadoPerfil">Completa los datos para actualizar o eliminar el usuario.</p>
+
+            <div class="form-group">
+                <label for="editUsername">Username</label>
+                <input type="text" id="editUsername">
+            </div>
+
+            <div class="form-group">
+                <label for="editEmail">Email</label>
+                <input type="email" id="editEmail">
+            </div>
+
+            <div class="form-group">
+                <label for="editPassword">Password</label>
+                <input type="text" id="editPassword">
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-primary" onclick="actualizarUsuario()">Guardar cambios</button>
+                <button type="button" class="btn btn-danger" onclick="borrarUsuario()">Eliminar usuario</button>
+                <button type="button" class="btn btn-secondary" onclick="cerrarSesion()">Cerrar sesión</button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

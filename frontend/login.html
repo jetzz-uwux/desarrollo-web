@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookNest - Login y Registro</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/loginScript.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <h1>Usuarios - BookNest</h1>
+            <a href="perfil.html" class="btn btn-outline">Ir a perfil</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div id="mensaje" class="alert hidden"></div>
+
+        <div class="grid-layout-equal">
+            <section class="card">
+                <h2>Iniciar sesión</h2>
+
+                <div class="form-group mt-1">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail">
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword">
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-primary" onclick="iniciarSesion()">Login</button>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>Registrar nuevo usuario</h2>
+
+                <div class="form-group mt-1">
+                    <label for="regUsername">Username</label>
+                    <input type="text" id="regUsername">
+                </div>
+
+                <div class="form-group">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail">
+                </div>
+
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <input type="password" id="regPassword">
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-primary" onclick="crearUsuario()">Registrar</button>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
