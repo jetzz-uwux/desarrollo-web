@@ -50,7 +50,7 @@
 - **Integrante 1:** *(Completar)*
 - **Integrante 2:** *(Completar)*
 - **Integrante 3:** *(Completar)*
-- **Integrante 4 (Camila Mariné Crespo Zurita):** Desarrollo de páginas, formularios y tablas en HTML/CSS (`index.html`, `styles.css`), implementación de funciones `fetch` (`api.js`, `app.js`), sistema de notificaciones de errores y confirmaciones, habilitación de `@CrossOrigin` e integración frontend-backend del módulo de reseñas, calificaciones y estadísticas.
+- **Integrante 4 (Camila Mariné Crespo Zurita):** Desarrollo de páginas, formularios y tablas en HTML/CSS (`index.html`, `styles.css`), implementación de funciones `fetch` (`api.js`, `app.js`), notificaciones de errores y confirmaciones, habilitación de `@CrossOrigin` e integración frontend-backend del módulo de reseñas, calificaciones y estadísticas.
 
 ## 7. Próximas actividades
 - Integrar los módulos restantes en la interfaz web.

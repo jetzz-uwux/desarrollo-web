@@ -42,7 +42,7 @@
 - **Jetzaly Josmery Tello Campos:** Implementación de métodos `PUT` y `DELETE` e incorporación de filtros en el módulo de catálogo.
 - **Hans Arturo Martínez Romero:** *(Pendiente de completar)*
 - **Juan Luis Gaona Aguirre:** Implementación de métodos `PUT` y `DELETE` en el módulo de biblioteca personal.
-- **Camila Mariné Crespo Zurita:** Implementación de métodos `PUT` y `DELETE` para reseñas (RF-31) y calificaciones con recálculo automático de promedios (RF-09, RF-17). Incorporación de filtros opcionales (`bookId`, `userId`), manejo de libros sin votos con leyenda `"Sin calificar"` (RF-18), rankings de más leídos (RF-20, RF-22) y estadísticas personales (RF-13). Validación de respuestas HTTP (`400`, `404`, `409`), pruebas de persistencia tras reinicio y documentación de uso de IA (`Uso_03`).
+- **Camila Mariné Crespo Zurita:** Implementación de métodos `PUT` y `DELETE` para reseñas y calificaciones con recálculo automático de promedios.
 
 # 7. Próximas actividades
 - Integración del Frontend (HTML, CSS, JavaScript con Fetch) consumiendo los endpoints REST.
