@@ -25,6 +25,40 @@
         <article class="card mt-1">
             <h2 th:text="${libro.mainTitle}"></h2>
 
+            <p>
+                <strong>Autor(es):</strong>
+                <span th:text="${autoresLibro}"></span>
+            </p>
+
+            <p>
+                <strong>Género(s):</strong>
+                <span th:text="${generosLibro}"></span>
+            </p>
+            
+        <section class="book-series-info">
+            <h3>Información de la serie</h3>
+
+            <p>
+                <strong>Serie:</strong>
+                <span th:text="${nombreSerie}">Libro independiente</span>
+            </p>
+
+            <p>
+                <strong>Tipo:</strong>
+                <span th:text="${tipoSerie}">No pertenece a una serie</span>
+            </p>
+
+            <p th:if="${numeroVolumen != null}">
+                <strong>Número de volumen:</strong>
+                <span th:text="${numeroVolumen}"></span>
+            </p>
+
+            <p th:if="${ordenLectura != null}">
+                <strong>Orden de lectura:</strong>
+                <span th:text="${ordenLectura}"></span>
+            </p>
+        </section>
+
             <p><strong>Páginas:</strong> <span th:text="${libro.totalPages}"></span></p>
             <p><strong>Fecha de publicación:</strong>
                <span th:text="${libro.originalPublicationDate}"></span></p>
@@ -33,6 +67,54 @@
             <p th:text="${libro.synopsis}"></p>
         </article>
 
+        <section class="card mt-1">
+            <h3>Archivos disponibles</h3>
+
+            <p th:if="${#lists.isEmpty(archivosLibro)}">
+                Este libro todavía no tiene archivos PDF disponibles.
+            </p>
+
+            <div class="table-responsive"
+                th:unless="${#lists.isEmpty(archivosLibro)}">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Archivo</th>
+                            <th>Idioma</th>
+                            <th>ISBN</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="archivo : ${archivosLibro}">
+                            <td th:text="${archivo.originalFilename != null
+                                ? archivo.originalFilename
+                                : 'Documento PDF'}"></td>
+
+                            <td th:text="${archivo.language == 'es'
+                                ? 'Español'
+                                : (archivo.language == 'en'
+                                    ? 'Inglés'
+                                    : archivo.language)}"></td>
+
+                            <td th:text="${archivo.editionIsbn != null
+                                ? archivo.editionIsbn
+                                : 'No registrado'}"></td>
+
+                            <td>
+                                <a class="btn btn-primary"
+                                th:href="@{/api/files/download/{id}(id=${archivo.id})}">
+                                    Descargar PDF
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
     </main>
 
 </body>

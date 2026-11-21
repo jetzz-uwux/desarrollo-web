@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookNest - Detalle de serie</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="container nav-content">
+        <h1>📚 BookNest</h1>
+        <nav>
+            <a class="btn btn-outline"
+               th:href="@{/catalogo}">Catálogo</a>
+            <a class="btn btn-outline"
+               th:href="@{/catalogo/series}">Series</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+
+    <p class="mt-1">
+        <a th:href="@{/catalogo/series}">
+            ← Volver a series
+        </a>
+    </p>
+
+    <section class="card">
+        <h2 th:text="${serie.name}">Nombre de la serie</h2>
+
+        <p>
+            <strong>Tipo:</strong>
+            <span th:text="${serie.seriesType}"></span>
+        </p>
+
+        <h3>Orden de lectura</h3>
+
+        <p th:if="${#lists.isEmpty(librosSerie)}">
+            Esta serie todavía no tiene libros asociados.
+        </p>
+
+        <div class="table-responsive"
+             th:unless="${#lists.isEmpty(librosSerie)}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Orden</th>
+                        <th>Volumen</th>
+                        <th>Libro</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="dato : ${librosSerie}">
+                        <td th:text="${dato.orden ?: 'No definido'}"></td>
+                        <td th:text="${dato.volumen ?: 'No definido'}"></td>
+                        <td th:text="${dato.libro.mainTitle}"></td>
+                        <td>
+                            <a class="btn btn-outline"
+                               th:href="@{/catalogo/libros/{id}(id=${dato.libro.id})}">
+                                Ver ficha
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Calificación pública -->
+    <section class="card mt-1">
+        <h3>Calificación de los lectores</h3>
+
+        <p>
+            <strong>Promedio:</strong>
+            <span th:text="${calificacion}">
+                Sin calificar
+            </span>
+        </p>
+
+        <p>
+            <strong>Total de calificaciones:</strong>
+            <span th:text="${totalCalificaciones}">0</span>
+        </p>
+    </section>
+
+    <!-- Reseñas públicas -->
+    <section class="card mt-1">
+        <h3>Reseñas de lectores</h3>
+
+        <p th:if="${#lists.isEmpty(resenasLibro)}">
+            Este libro todavía no tiene reseñas.
+        </p>
+
+        <div th:each="resena : ${resenasLibro}"
+            class="book-review">
+
+            <p>
+                <strong th:text="${resena.usuario}">
+                    Usuario
+                </strong>
+            </p>
+
+            <p th:text="${resena.contenido}">
+                Contenido de la reseña
+            </p>
+
+            <p th:if="${resena.fecha != null}">
+                <small th:text="${resena.fecha}">
+                    Fecha
+                </small>
+            </p>
+
+            <hr>
+        </div>
+</section>
+
+</main>
+</body>
+</html>

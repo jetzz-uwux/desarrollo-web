@@ -28,9 +28,9 @@
             <form method="get" th:action="@{/catalogo}">
 
                 <div class="form-group">
-                    <label for="q">Buscar por título:</label>
+                    <label for="q">Buscar por título o autor:</label>
                     <input type="text" id="q" name="q" th:value="${q}"
-                           placeholder="Escribe un título">
+                           placeholder="Escribe un título o nombre de autor">
                 </div>
 
                 <div class="form-group">
@@ -43,6 +43,72 @@
                     <label for="maxPages">Páginas máximas:</label>
                     <input type="number" id="maxPages" name="maxPages" min="0"
                            th:value="${maxPages}">
+                </div>
+
+                <!-- Filtrar por género -->
+                <div class="form-group">
+                    <label for="genreId">Género:</label>
+                    <select id="genreId" name="genreId">
+                        <option value="">Todos los géneros</option>
+                        <option th:each="genero : ${generos}"
+                                th:value="${genero.id}"
+                                th:text="${genero.name}"
+                                th:selected="${genreId == genero.id}">
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Filtrar por autor -->
+                <div class="form-group">
+                    <label for="authorId">Autor:</label>
+                    <select id="authorId" name="authorId">
+                        <option value="">Todos los autores</option>
+                        <option th:each="autor : ${autores}"
+                                th:value="${autor.id}"
+                                th:text="${autor.name}"
+                                th:selected="${authorId == autor.id}">
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Ordenar libros -->
+                <div class="form-group">
+                    <label for="sort">Ordenar por:</label>
+                    <select id="sort" name="sort">
+                        <option value="">Sin orden específico</option>
+                        <option value="title"
+                                th:selected="${sort == 'title'}">
+                            Título (A-Z)
+                        </option>
+                        <option value="pages-asc"
+                                th:selected="${sort == 'pages-asc'}">
+                            Menos páginas primero
+                        </option>
+                        <option value="pages-desc"
+                                th:selected="${sort == 'pages-desc'}">
+                            Más páginas primero
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Filtrar por tipo de serie -->
+                <div class="form-group">
+                    <label for="seriesType">Tipo de serie:</label>
+                    <select id="seriesType" name="seriesType">
+                        <option value="">Todos los tipos</option>
+                        <option value="Bilogía"
+                                th:selected="${seriesType == 'Bilogía'}">
+                            Bilogía
+                        </option>
+                        <option value="Trilogía"
+                                th:selected="${seriesType == 'Trilogía'}">
+                            Trilogía
+                        </option>
+                        <option value="Saga"
+                                th:selected="${seriesType == 'Saga'}">
+                            Saga
+                        </option>
+                    </select>
                 </div>
 
                 <div class="form-actions">
@@ -59,25 +125,34 @@
         <p th:if="${#lists.isEmpty(libros)}">No se encontraron libros.</p>
 
         <!-- Tabla de libros -->
-        <div class="table-responsive" th:unless="${#lists.isEmpty(libros)}">
+        <div class="table-responsive"
+            th:unless="${#lists.isEmpty(libros)}">
+
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Título</th>
+                        <th>Autor(es)</th>
+                        <th>Género(s)</th>
                         <th>Páginas</th>
-                        <th>Sinopsis</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     <tr th:each="libro : ${libros}">
-                        <td th:text="${libro.id}"></td>
-                        <td>
-                            <a th:href="@{/catalogo/libros/{id}(id=${libro.id})}"
-                               th:text="${libro.mainTitle}"></a>
-                        </td>
+
+                        <td th:text="${libro.mainTitle}"></td>
+                        <td th:text="${nombresAutores.get(libro.id) ?: 'Sin autor registrado'}"></td>
+                        <td th:text="${nombresGeneros.get(libro.id) ?: 'Sin género registrado'}"></td>
                         <td th:text="${libro.totalPages}"></td>
-                        <td th:text="${libro.synopsis}"></td>
+                        <td>
+                            <a class="btn btn-outline"
+                            th:href="@{/catalogo/libros/{id}(id=${libro.id})}">
+                                Ver ficha
+                            </a>
+                        </td>
+
                     </tr>
                 </tbody>
             </table>

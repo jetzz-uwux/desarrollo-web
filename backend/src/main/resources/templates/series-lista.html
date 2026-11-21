@@ -36,7 +36,12 @@
                 <tbody>
                     <tr th:each="serie : ${series}">
                         <td th:text="${serie.id}"></td>
-                        <td th:text="${serie.name}"></td>
+                        <td>
+                            <a th:href="@{/catalogo/series/{id}(id=${serie.id})}"
+                            th:text="${serie.name}">
+                                Nombre de la serie
+                            </a>
+                        </td>                    
                         <td th:text="${serie.seriesType}"></td>
                     </tr>
                 </tbody>
