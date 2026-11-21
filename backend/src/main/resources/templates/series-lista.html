@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookNest - Series literarias</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container nav-content">
+            <h1>📚 BookNest</h1>
+            <nav>
+                <a class="btn btn-outline" th:href="@{/catalogo}">Catálogo</a>
+                <a class="btn btn-outline" th:href="@{/catalogo/series}">Series</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <h2 class="mt-1">Series literarias</h2>
+
+        <p th:if="${#lists.isEmpty(series)}">No hay series registradas.</p>
+
+        <div class="table-responsive" th:unless="${#lists.isEmpty(series)}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="serie : ${series}">
+                        <td th:text="${serie.id}"></td>
+                        <td th:text="${serie.name}"></td>
+                        <td th:text="${serie.seriesType}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+</body>
+</html>

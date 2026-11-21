@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.server.ResponseStatusException;
 
 import mx.uv.booknest.models.LiterarySeries;
@@ -18,6 +19,7 @@ import mx.uv.booknest.repository.LiterarySeriesRepository;
  */
 
 @Service
+@CrossOrigin(origins = "*")
 public class LiterarySeriesService {
     private final LiterarySeriesRepository repository;
     private final BookSeriesRepository bookSeriesRepository;

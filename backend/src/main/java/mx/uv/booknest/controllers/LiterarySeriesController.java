@@ -3,6 +3,7 @@ package mx.uv.booknest.controllers;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,8 @@ import mx.uv.booknest.service.LiterarySeriesService;
  * @author Jetzaly
  * 
  */
+
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/series")
 public class LiterarySeriesController {
