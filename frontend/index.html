@@ -14,6 +14,10 @@
                 <button type="button" class="nav-btn active" data-target="seccion-resenas">Reseñas</button>
                 <button type="button" class="nav-btn" data-target="seccion-ratings">Calificaciones</button>
                 <button type="button" class="nav-btn" data-target="seccion-estadisticas">Estadísticas</button>
+                <button type="button" class="nav-btn" data-target="seccion-libros">Libros</button>
+                <button type="button" class="nav-btn" data-target="seccion-series">Series</button>
+                <a class="btn btn-outline" href="http://localhost:8081/catalogo">Catálogo</a>
+                <a class="btn btn-outline" href="http://localhost:8081/catalogo/series">Lista de series</a>
             </nav>
         </div>
     </header>
@@ -220,9 +224,95 @@
                 </article>
             </div>
         </section>
+        
+        <!-- ==================== SECCIÓN: LIBROS ==================== -->
+        <section id="seccion-libros" class="panel hidden">
+            <h2>Libros</h2>
+
+            <div class="grid-layout">
+
+                <!-- Formulario para crear un libro -->
+                <article class="card">
+                    <h3>Nuevo libro</h3>
+                    <form id="form-libro">
+                        <div class="form-group">
+                            <label for="libro-titulo">Título *</label>
+                            <input type="text" id="libro-titulo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="libro-paginas">Páginas *</label>
+                            <input type="number" id="libro-paginas" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="libro-sinopsis">Sinopsis</label>
+                            <textarea id="libro-sinopsis" rows="3"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Guardar libro</button>
+                        </div>
+                    </form>
+                </article>
+
+                <!-- Ligar autor y género a un libro -->
+                <article class="card">
+                    <h3>Ligar autor y género a un libro</h3>
+
+                    <div class="form-group">
+                        <label for="libro-select">Libro</label>
+                        <select id="libro-select"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="autor-select">Autor</label>
+                        <select id="autor-select"></select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="btn-ligar-autor" class="btn btn-secondary">Ligar autor</button>
+                    </div>
+
+                    <div class="form-group mt-1">
+                        <label for="genero-select">Género</label>
+                        <select id="genero-select"></select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="btn-ligar-genero" class="btn btn-secondary">Ligar género</button>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- ==================== SECCIÓN: SERIES ==================== -->
+        <section id="seccion-series" class="panel hidden">
+            <h2>Series literarias</h2>
+
+            <div class="grid-layout">
+                <article class="card">
+                    <h3>Nueva serie</h3>
+                    <form id="form-serie">
+                        <div class="form-group">
+                            <label for="serie-nombre">Nombre *</label>
+                            <input type="text" id="serie-nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="serie-tipo">Tipo *</label>
+                            <select id="serie-tipo" required>
+                                <option value="bilogia">Bilogía</option>
+                                <option value="trilogia">Trilogía</option>
+                                <option value="saga">Saga</option>
+                            </select>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Guardar serie</button>
+                        </div>
+                    </form>
+                </article>
+            </div>
+        </section>
     </main>
 
     <script src="js/api.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/catalogo.js"></script>
 </body>
 </html>

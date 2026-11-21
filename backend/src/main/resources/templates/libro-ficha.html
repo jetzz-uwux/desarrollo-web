@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${libro.mainTitle}">Ficha del libro</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container nav-content">
+            <h1>📚 BookNest</h1>
+            <nav>
+                <a class="btn btn-outline" th:href="@{/catalogo}">Catálogo</a>
+                <a class="btn btn-outline" th:href="@{/catalogo/series}">Series</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <p class="mt-1"><a th:href="@{/catalogo}">← Volver al catálogo</a></p>
+
+        <article class="card mt-1">
+            <h2 th:text="${libro.mainTitle}"></h2>
+
+            <p><strong>Páginas:</strong> <span th:text="${libro.totalPages}"></span></p>
+            <p><strong>Fecha de publicación:</strong>
+               <span th:text="${libro.originalPublicationDate}"></span></p>
+
+            <h3 class="mt-1">Sinopsis</h3>
+            <p th:text="${libro.synopsis}"></p>
+        </article>
+
+    </main>
+
+</body>
+</html>

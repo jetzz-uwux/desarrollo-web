@@ -32,6 +32,28 @@ async function request(endpoint, options = {}) {
 const BookNestAPI = {
     // --- CATÁLOGO DE LIBROS ---
     getBooks: () => request("/api/books"),
+    
+    createBook: (libro) => request("/api/books", {
+        method: "POST",
+        body: JSON.stringify(libro)
+    }),
+
+    linkAuthor: (bookId, authorId) => request(`/api/books/${bookId}/authors`, {
+        method: "POST",
+        body: JSON.stringify({ authorId })
+    }),
+
+    linkGenre: (bookId, genreId) => request(`/api/books/${bookId}/genres`, {
+        method: "POST",
+        body: JSON.stringify({ genreId })
+    }),
+    
+    getAuthors: () => request("/api/authors"),
+    getGenres: () => request("/api/genres"),
+    createSeries: (serie) => request("/api/series", {
+        method: "POST",
+        body: JSON.stringify(serie)
+    }),
 
     // --- RESEÑAS (/api/reviews) ---
     getReviews: (bookId = "", userId = "") => {
