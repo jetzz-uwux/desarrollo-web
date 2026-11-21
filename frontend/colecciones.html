@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookNest - Colecciones y Progreso</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/coleccionesScript.js"></script>
+    <script src="js/progresoScript.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <h1>Colecciones y Lectura</h1>
+            <div class="nav-actions">
+                <a href="perfil.html" class="btn btn-outline">Perfil</a>
+                <a href="login.html" class="btn btn-outline">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div id="mensaje" class="alert hidden"></div>
+
+        <section class="card">
+            <p id="estadoColecciones">Verificando sesión...</p>
+
+            <div class="form-group mt-1">
+                <label for="nombreColeccion">Nombre de la colección</label>
+                <input type="text" id="nombreColeccion" placeholder="Ej. Favoritos">
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-primary" onclick="crearColeccion()">Crear colección</button>
+                <button type="button" class="btn btn-secondary" onclick="cargarColecciones()">Actualizar lista</button>
+            </div>
+        </section>
+
+        <section class="card mt-1">
+            <h2>Mis colecciones</h2>
+            <div id="listaColecciones"></div>
+        </section>
+
+        <section class="card mt-1">
+            <h2>Agregar libro a colección</h2>
+
+            <div class="form-group">
+                <label for="selectColeccionDestino">Colección</label>
+                <select id="selectColeccionDestino"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="buscarTituloColeccion">Buscar por título</label>
+                <div class="form-actions">
+                    <input type="text" id="buscarTituloColeccion" placeholder="Ej. Dune">
+                    <button type="button" class="btn btn-secondary" onclick="buscarLibrosColeccion()">Buscar</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Resultados de búsqueda</label>
+                <div id="resultadosLibros" class="form-actions"></div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-primary" onclick="agregarLibroColeccion()">Guardar en colección</button>
+            </div>
+        </section>
+
+        <section class="card mt-1">
+            <h2>Progreso de lectura</h2>
+
+            <div class="form-group">
+                <label for="buscarTituloProgreso">Buscar libro por título</label>
+                <div class="form-actions">
+                    <input type="text" id="buscarTituloProgreso" placeholder="Ej. Dune">
+                    <button type="button" class="btn btn-secondary" onclick="buscarLibrosProgreso()">Buscar</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="selectLibroProgreso">Libro</label>
+                <select id="selectLibroProgreso"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="estadoLectura">Estado</label>
+                <select id="estadoLectura">
+                    <option value="pendiente">pendiente</option>
+                    <option value="leyendo">leyendo</option>
+                    <option value="terminado">terminado</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="paginaActual">Página actual</label>
+                <input type="number" id="paginaActual" min="0" value="0">
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-primary" onclick="guardarProgreso()">Guardar progreso</button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

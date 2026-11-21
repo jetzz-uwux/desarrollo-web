@@ -44,6 +44,10 @@ public class UserCollectionController {
         return ResponseEntity.ok("Colección eliminada exitosamente");
     }
 
-
+    @PostMapping("/{collectionId}/books/{bookId}")
+    public ResponseEntity<String> agregarLibro(@PathVariable Long collectionId, @PathVariable Long bookId) {
+        collectionService.agregarLibroAColeccion(collectionId, bookId);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Libro agregado a la colección");
+    }
 
 }

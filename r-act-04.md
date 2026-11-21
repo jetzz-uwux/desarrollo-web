@@ -37,7 +37,7 @@
   - Consulta de ranking de libros más leídos (`GET /api/stats/most-read`) y estadísticas personales de lectura por usuario (`GET /api/stats/user/{userId}`).
   - Visualización de alertas de confirmación y error en pantalla.
 - **Pendiente:**
-  - Integración de vistas adicionales del resto de módulos (catálogo completo, archivos PDF y colecciones personales) y generación del documento PDF final consolidado y video demostrativo.
+  - Integración de vistas adicionales del resto de módulos (archivos PDF) y generación del documento PDF final consolidado y video demostrativo.
 
 ## 5. Uso de IA generativa
 - **Herramienta utilizada:** Google Gemini
@@ -53,7 +53,7 @@
 - **Integrante 4 (Camila Mariné Crespo Zurita):** Desarrollo de páginas, formularios y tablas en HTML/CSS (`index.html`, `styles.css`), implementación de funciones `fetch` (`api.js`, `app.js`), notificaciones de errores y confirmaciones, habilitación de `@CrossOrigin` e integración frontend-backend del módulo de reseñas, calificaciones y estadísticas.
 
 ## 7. Próximas actividades
-- Integrar los módulos restantes en la interfaz web.
+- Integrar los módulos restantes en la interfaz web, como mostrar las colecciones ya guardadas.
 - Completar el `README.md` con instrucciones de ejecución paso a paso en WSL.
 - Redactar y exportar el documento `documentacion/proyecto.pdf` con portada, problemática, arquitectura y enlaces.
 - Grabar y subir el video demostrativo en YouTube (máximo 15-20 minutos) y generar el *Release* final en GitHub.

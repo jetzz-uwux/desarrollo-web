@@ -1,0 +1,1 @@
+ Como podria verificar al usuario al que le pertenece la coleccion? Para poner una salvaguarda por si se intenta guardar algo sin estar logeado (Compartí la clase para que me ayudara a diseñar la solución, que no se pueda guardar la coleccion sin sesion activa, ya que se trababa al intentar hacer esto)
