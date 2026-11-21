@@ -18,7 +18,7 @@
 | :--- | :--- | :--- |
 | Desarrollo de interfaz (`index.html`, `styles.css`), funciones Fetch (`api.js`, `app.js`), manejo de alertas y configuración `@CrossOrigin` | Integrante 04 (Camila) | `7a722bb` |
 | Desarrollo y unión de interfaces | Integrante 04 (Jetzaly) | https://github.com/jetzz-uwux/desarrollo-web/commit/f8fea70957634370692c4c3dbd804368b80372d6, https://github.com/jetzz-uwux/desarrollo-web/commit/16d5b4cfc9be6ee3f9fe07801a44fd598d2ea8ec |
-| *(Agregar actividades de Integrante 02)* | Integrante 02 | *(commit)* |
+| frontend coleccion/progreso| Integrante 02 (Juan) | 2643047 |
 | *(Agregar actividades de Integrante 03)* | Integrante 03 | *(commit)* |
 
 ## 3. Problemas encontrados
