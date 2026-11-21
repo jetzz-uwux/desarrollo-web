@@ -1,0 +1,1 @@
+Me estan dando errores al momento del ordenamiento de datos, te voy a pasar el código y señalame cual fue mi error, además explicame el uso de templates y el frontend de manera tal que un alumno de primer año entienda

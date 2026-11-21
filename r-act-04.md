@@ -17,7 +17,7 @@
 | Actividad | Integrante responsable | Enlace a commit |
 | :--- | :--- | :--- |
 | Desarrollo de interfaz (`index.html`, `styles.css`), funciones Fetch (`api.js`, `app.js`), manejo de alertas y configuración `@CrossOrigin` | Integrante 04 (Camila) | `7a722bb` |
-| *(Agregar actividades de Integrante 01)* | Integrante 01 | *(commit)* |
+| Desarrollo y unión de interfaces | Integrante 04 (Jetzaly) | https://github.com/jetzz-uwux/desarrollo-web/commit/f8fea70957634370692c4c3dbd804368b80372d6, https://github.com/jetzz-uwux/desarrollo-web/commit/16d5b4cfc9be6ee3f9fe07801a44fd598d2ea8ec |
 | *(Agregar actividades de Integrante 02)* | Integrante 02 | *(commit)* |
 | *(Agregar actividades de Integrante 03)* | Integrante 03 | *(commit)* |
 
@@ -46,8 +46,14 @@
 - **Modificaciones realizadas por el equipo:** Se incorporó `@CrossOrigin(origins = "*")` en los controladores de libros, reseñas y estadísticas, y se ajustaron las rutas y payloads en `frontend/js/api.js` y `frontend/js/app.js`.
 - **Forma en que se verificó el resultado:** Pruebas en navegador (`http://localhost:5500`) inspeccionando códigos de estado HTTP `200`/`201`/`204` en *DevTools (Network)* y verificando la persistencia en PostgreSQL. Evidencia detallada en `documentacion/IAG/Integrante 04/Uso_04/`.
 
+- **Herramienta utilizada:** Claude
+- **Actividad para la que se utilizó:** Consultas de errores y detalles, consulta de conceptos
+- **Código o contenido generado:** Diagnostico de fallos, y conceptos generados de usos de templates
+- **Modificaciones realizadas por el equipo:** Se integraron los templates
+- **Forma en que se verificó el resultado:** Pruebas en navegador
+
 ## 6. Participación individual
-- **Integrante 1:** *(Completar)*
+- **Integrante 1(Jetzaly Josmery Tello Campos):** Front y backend enlazados y se adicionó el uso de templates para el apartado de catálogo y series, e implementación de funciones fetch.
 - **Integrante 2:** *(Completar)*
 - **Integrante 3 (Juan Luis Gaona Aguirre):** Frontend HTML/JS de login y pagina de usuario, pagina de colecciones del usuario. Implementacion de funciones fetch para recabar datos del backend creado.
 - **Integrante 4 (Camila Mariné Crespo Zurita):** Desarrollo de páginas, formularios y tablas en HTML/CSS (`index.html`, `styles.css`), implementación de funciones `fetch` (`api.js`, `app.js`), notificaciones de errores y confirmaciones, habilitación de `@CrossOrigin` e integración frontend-backend del módulo de reseñas, calificaciones y estadísticas.
