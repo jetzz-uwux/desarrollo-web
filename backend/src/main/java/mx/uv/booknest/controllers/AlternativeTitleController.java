@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import mx.uv.booknest.models.AlternativeTitle;
 import mx.uv.booknest.service.AlternativeTitleService;
@@ -20,6 +21,7 @@ import mx.uv.booknest.service.AlternativeTitleService;
 /**
  * @author Hans Arturo
  */
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/alternative-titles")
 public class AlternativeTitleController {

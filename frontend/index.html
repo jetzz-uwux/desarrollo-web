@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookNest - Reseñas, Calificaciones y Estadísticas</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
     <header class="navbar">
         <div class="container nav-content">
@@ -16,6 +18,7 @@
                 <button type="button" class="nav-btn" data-target="seccion-estadisticas">Estadísticas</button>
                 <button type="button" class="nav-btn" data-target="seccion-libros">Libros</button>
                 <button type="button" class="nav-btn" data-target="seccion-series">Series</button>
+                <button type="button" class="nav-btn" data-target="seccion-archivos">Archivos</button>
                 <a class="btn btn-outline" href="http://localhost:8081/catalogo">Catálogo</a>
                 <a class="btn btn-outline" href="http://localhost:8081/catalogo/series">Lista de series</a>
             </nav>
@@ -51,12 +54,15 @@
 
                         <div class="form-group">
                             <label for="review-content">Contenido de la Reseña *</label>
-                            <textarea id="review-content" rows="4" placeholder="Escribe tu reseña sobre el libro..." required></textarea>
+                            <textarea id="review-content" rows="4" placeholder="Escribe tu reseña sobre el libro..."
+                                required></textarea>
                         </div>
 
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-primary" id="btn-review-submit">Publicar Reseña</button>
-                            <button type="button" class="btn btn-secondary hidden" id="btn-review-cancel">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" id="btn-review-submit">Publicar
+                                Reseña</button>
+                            <button type="button" class="btn btn-secondary hidden"
+                                id="btn-review-cancel">Cancelar</button>
                         </div>
                     </form>
                 </article>
@@ -69,7 +75,8 @@
                             <select id="filter-review-book" aria-label="Filtrar por libro">
                                 <option value="">Todos los libros</option>
                             </select>
-                            <input type="number" id="filter-review-user" min="1" placeholder="Filtrar ID usuario" class="input-sm">
+                            <input type="number" id="filter-review-user" min="1" placeholder="Filtrar ID usuario"
+                                class="input-sm">
                             <button type="button" class="btn btn-outline" id="btn-filter-reviews">Filtrar</button>
                         </div>
                     </div>
@@ -135,7 +142,8 @@
 
                         <div class="form-actions">
                             <button type="submit" class="btn btn-primary" id="btn-rating-create">Guardar Nueva</button>
-                            <button type="button" class="btn btn-outline" id="btn-rating-update">Actualizar por ID</button>
+                            <button type="button" class="btn btn-outline" id="btn-rating-update">Actualizar por
+                                ID</button>
                             <button type="button" class="btn btn-danger" id="btn-rating-delete">Eliminar por ID</button>
                         </div>
                     </form>
@@ -224,7 +232,7 @@
                 </article>
             </div>
         </section>
-        
+
         <!-- ==================== SECCIÓN: LIBROS ==================== -->
         <section id="seccion-libros" class="panel hidden">
             <h2>Libros</h2>
@@ -309,10 +317,196 @@
                 </article>
             </div>
         </section>
+
+        <!-- ==================== SECCIÓN: ARCHIVO COLABORATIVO ==================== -->
+        <section id="seccion-archivos" class="panel hidden">
+            <h2>Archivo Colaborativo (PDFs)</h2>
+
+            <div class="grid-layout">
+                <!-- Formulario de Subida / Edición de PDF -->
+                <article class="card">
+                    <h3 id="file-form-title">Subir Archivo PDF</h3>
+                    <form id="file-form">
+                        <input type="hidden" id="file-id">
+
+                        <div class="form-group">
+                            <label for="file-book-select">Libro *</label>
+                            <select id="file-book-select" required>
+                                <option value="">Cargando libros...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="file-user-id">ID de Usuario (opcional)</label>
+                            <input type="number" id="file-user-id" min="1" placeholder="Ej. 3">
+                        </div>
+
+                        <div class="form-group" id="file-input-group">
+                            <label for="file-pdf">Archivo PDF (máx. 50 MB) *</label>
+                            <input type="file" id="file-pdf" accept=".pdf,application/pdf" required>
+                        </div>
+
+                        <div class="form-group hidden" id="file-filename-group">
+                            <label for="file-original-filename">Nombre del archivo (.pdf) *</label>
+                            <input type="text" id="file-original-filename" placeholder="libro.pdf">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="file-language">Idioma *</label>
+                            <select id="file-language" required>
+                                <option value="es">Español (es)</option>
+                                <option value="en">Inglés (en)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="file-isbn">ISBN de edición (opcional)</label>
+                            <input type="text" id="file-isbn" placeholder="Ej. 9788401352836">
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="file-authorized" checked
+                                    style="width: auto; margin-right: 0.4rem;">
+                                Confirmo que el archivo es de dominio público, propio o autorizado (RNF-12)
+                            </label>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary" id="btn-file-submit">Subir PDF</button>
+                            <button type="button" class="btn btn-secondary hidden"
+                                id="btn-file-cancel">Cancelar</button>
+                        </div>
+                    </form>
+                </article>
+
+                <!-- Tabla y Filtros de Archivos PDF -->
+                <article class="card">
+                    <div class="table-header">
+                        <h3>Archivos Disponibles</h3>
+                        <div class="filter-group">
+                            <select id="filter-file-book" aria-label="Filtrar por libro">
+                                <option value="">Todos los libros</option>
+                            </select>
+                            <select id="filter-file-language" aria-label="Filtrar por idioma" class="input-sm">
+                                <option value="">Idioma</option>
+                                <option value="es">Español</option>
+                                <option value="en">Inglés</option>
+                            </select>
+                            <input type="text" id="filter-file-q" placeholder="Buscar nombre..." class="input-sm">
+                            <button type="button" class="btn btn-outline" id="btn-filter-files">Filtrar</button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Libro</th>
+                                    <th>Archivo</th>
+                                    <th>Idioma</th>
+                                    <th>ISBN</th>
+                                    <th>Tamaño</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="files-tbody">
+                                <tr>
+                                    <td colspan="7" class="text-center">Cargando archivos...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </div>
+
+            <h2 class="mt-1">Títulos Alternativos</h2>
+
+            <div class="grid-layout">
+                <!-- Formulario de Títulos Alternativos -->
+                <article class="card">
+                    <h3 id="alt-title-form-title">Aportar Título Alternativo</h3>
+                    <form id="alt-title-form">
+                        <input type="hidden" id="alt-title-id">
+
+                        <div class="form-group">
+                            <label for="alt-title-book-select">Libro *</label>
+                            <select id="alt-title-book-select" required>
+                                <option value="">Cargando libros...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="alt-title-user-id">ID de Usuario (opcional)</label>
+                            <input type="number" id="alt-title-user-id" min="1" placeholder="Ej. 3">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="alt-title-text">Título Alternativo *</label>
+                            <input type="text" id="alt-title-text" placeholder="Ej. The Name of the Wind" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="alt-title-language">Idioma *</label>
+                            <select id="alt-title-language" required>
+                                <option value="es">Español (es)</option>
+                                <option value="en">Inglés (en)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary" id="btn-alt-submit">Guardar Título</button>
+                            <button type="button" class="btn btn-secondary hidden" id="btn-alt-cancel">Cancelar</button>
+                        </div>
+                    </form>
+                </article>
+
+                <!-- Tabla y Filtros de Títulos Alternativos -->
+                <article class="card">
+                    <div class="table-header">
+                        <h3>Títulos Registrados</h3>
+                        <div class="filter-group">
+                            <select id="filter-alt-book" aria-label="Filtrar por libro">
+                                <option value="">Todos los libros</option>
+                            </select>
+                            <select id="filter-alt-language" aria-label="Filtrar por idioma" class="input-sm">
+                                <option value="">Idioma</option>
+                                <option value="es">Español</option>
+                                <option value="en">Inglés</option>
+                            </select>
+                            <input type="text" id="filter-alt-q" placeholder="Buscar título..." class="input-sm">
+                            <button type="button" class="btn btn-outline" id="btn-filter-alt">Filtrar</button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Libro</th>
+                                    <th>Título Alternativo</th>
+                                    <th>Idioma</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="alt-titles-tbody">
+                                <tr>
+                                    <td colspan="5" class="text-center">Cargando títulos...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </div>
+        </section>
     </main>
 
     <script src="js/api.js"></script>
     <script src="js/app.js"></script>
     <script src="js/catalogo.js"></script>
+    <script src="js/archivos.js"></script>
 </body>
+
 </html>

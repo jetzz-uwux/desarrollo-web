@@ -95,5 +95,65 @@ const BookNestAPI = {
         return request(`/api/stats/global${query}`);
     },
     getMostReadBooks: () => request("/api/stats/most-read"),
-    getUserPersonalStats: (userId) => request(`/api/stats/user/${encodeURIComponent(userId)}`)
+    getUserPersonalStats: (userId) => request(`/api/stats/user/${encodeURIComponent(userId)}`),
+
+    // --- ARCHIVOS COLABORATIVOS (/api/files) ---
+    getFiles: (bookId = "", language = "", q = "") => {
+        const params = new URLSearchParams();
+        if (bookId) params.append("bookId", bookId);
+        if (language) params.append("language", language);
+        if (q) params.append("q", q);
+        const query = params.toString() ? `?${params.toString()}` : "";
+        return request(`/api/files${query}`);
+    },
+    uploadFile: async (formData) => {
+        // Para multipart/form-data NO se debe poner Content-Type manual; el navegador agrega el boundary
+        const response = await fetch(`${API_BASE_URL}/api/files/upload`, {
+            method: "POST",
+            body: formData
+        });
+        if (!response.ok) {
+            let errorMessage = `Error HTTP ${response.status}`;
+            try {
+                const errorData = await response.json();
+                errorMessage = errorData.message || errorData.error || JSON.stringify(errorData);
+            } catch {
+                const textError = await response.text();
+                if (textError) errorMessage = textError;
+            }
+            throw new Error(errorMessage);
+        }
+        return response.json();
+    },
+    updateFile: (id, fileData) => request(`/api/files/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(fileData)
+    }),
+    deleteFile: (id) => request(`/api/files/${id}`, {
+        method: "DELETE"
+    }),
+    getDownloadUrl: (id) => `${API_BASE_URL}/api/files/download/${id}`,
+
+    // --- TÍTULOS ALTERNATIVOS (/api/alternative-titles) ---
+    getAlternativeTitles: (bookId = "", language = "", q = "") => {
+        const params = new URLSearchParams();
+        if (bookId) params.append("bookId", bookId);
+        if (language) params.append("language", language);
+        if (q) params.append("q", q);
+        const query = params.toString() ? `?${params.toString()}` : "";
+        return request(`/api/alternative-titles${query}`);
+    },
+    createAlternativeTitle: (data) => request("/api/alternative-titles", {
+        method: "POST",
+        body: JSON.stringify(data)
+    }),
+    updateAlternativeTitle: (id, data) => request(`/api/alternative-titles/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(data)
+    }),
+    deleteAlternativeTitle: (id) => request(`/api/alternative-titles/${id}`, {
+        method: "DELETE"
+    })
+
 };
+

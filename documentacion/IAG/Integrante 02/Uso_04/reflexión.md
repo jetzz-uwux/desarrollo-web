@@ -1,0 +1,3 @@
+**Tipo de uso:** Integración Frontend-Backend (HTML/JS/Fetch), Depuración y Pruebas en Navegador
+**Reflexión del estudiante:**
+El uso de la IA me ayudó a integrar mi módulo de Archivos Colaborativos dentro del `index.html` compartido del equipo manteniendo coherencia visual con `styles.css` y reutilizando el patrón de `BookNestAPI`. Aprendí el detalle técnico clave de no definir manualmente la cabecera `Content-Type` al enviar archivos PDF con `FormData` en `fetch` para que el navegador genere automáticamente el `boundary`, así como a verificar en *DevTools* la comunicación sin bloqueos CORS entre el puerto `5500` y el backend en `8081`. También me permitió diagnosticar con rapidez el fallo de autenticación de PostgreSQL antes de ejecutar la batería completa de pruebas.

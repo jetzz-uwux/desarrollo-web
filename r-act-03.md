@@ -23,6 +23,7 @@
 | Implementar PUT y DELETE - Biblioteca | Juan Luis Gaona Aguirre | https://github.com/jetzz-uwux/desarrollo-web/commit/b25a808 |
 | PUT, DELETE, filtros y validación HTTP (400, 404, 409) - Reseñas/Stats | Camila Mariné Crespo Zurita | https://github.com/jetzz-uwux/desarrollo-web/commit/a4a3899 |
 | Pruebas CURL, persistencia y documentación IA - Reseñas/Stats | Camila Mariné Crespo Zurita | https://github.com/jetzz-uwux/desarrollo-web/commit/3780806 |
+| Implementar PUT, DELETE, filtros y validaciones HTTP | Martínez Romero Hans Arturo | https://github.com/jetzz-uwux/desarrollo-web/commit/f6e4687 |
 
 # 3. Problemas encontrados
 - **Módulo de Reseñas y Estadísticas:** Al realizar las pruebas iniciales tras reiniciar el entorno, el servidor devolvió `404 Not Found ("El usuario especificado no existe")` debido a que `ddl-auto=create` recreaba las tablas vacías. Se solucionó ejecutando `database/datosPruebas.sql` y cambiando la propiedad a `spring.jpa.hibernate.ddl-auto=validate` para garantizar la persistencia real en PostgreSQL.
@@ -40,7 +41,7 @@
 
 # 6. Participación individual
 - **Jetzaly Josmery Tello Campos:** Implementación de métodos `PUT` y `DELETE` e incorporación de filtros en el módulo de catálogo.
-- **Hans Arturo Martínez Romero:** *(Pendiente de completar)*
+- **Hans Arturo Martínez Romero:** IMplementación de métodos `PUT` y `DELETE` e incorporaciíon de filtros en el módulo de Archivos.
 - **Juan Luis Gaona Aguirre:** Implementación de métodos `PUT` y `DELETE` en el módulo de biblioteca personal.
 - **Camila Mariné Crespo Zurita:** Implementación de métodos `PUT` y `DELETE` para reseñas y calificaciones con recálculo automático de promedios.
 

@@ -37,9 +37,9 @@
 | Implementar POST y GET - Reseñas/Stats | Camila Mariné Crespo Zurita | https://github.com/jetzz-uwux/desarrollo-web/commit/b9d0510 |
 | Script de base de datos para pruebas locales | Camila Mariné Crespo Zurita | https://github.com/jetzz-uwux/desarrollo-web/commit/b9d0510 |
 | Documentación CURL y uso de IA - Reseñas | Camila Mariné Crespo Zurita | https://github.com/jetzz-uwux/desarrollo-web/commit/50c7ea3 |
-| Crear entidades y repositorios - Archivo colaborativo | Hans Arturo Martínez Romero | https://github.com/jetzz-uwux/desarrollo-web/commits/main |
-| Implementar POST y GET - Archivo colaborativo | Hans Arturo Martínez Romero | https://github.com/jetzz-uwux/desarrollo-web/commits/main |
-| Documentación CURL y uso de IA - Archivo colaborativo | Hans Arturo Martínez Romero | https://github.com/jetzz-uwux/desarrollo-web/commits/main |
+| Crear entidades y repositorios - Archivo colaborativo | Hans Arturo Martínez Romero | https://github.com/jetzz-uwux/desarrollo-web/commit/1a0f842 |
+| Implementar POST y GET - Archivo colaborativo | Hans Arturo Martínez Romero | https://github.com/jetzz-uwux/desarrollo-web/commit/1a0f842 |
+| Documentación CURL y uso de IA - Archivo colaborativo | Hans Arturo Martínez Romero | https://github.com/jetzz-uwux/desarrollo-web/commit/1a0f842 |
 
 
 ---
