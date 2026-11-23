@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookNest - Reseñas, Calificaciones y Estadísticas</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/catalogo-ui.css">
 </head>
 
 <body>
@@ -233,60 +234,42 @@
             </div>
         </section>
 
-        <!-- ==================== SECCIÓN: LIBROS ==================== -->
-        <section id="seccion-libros" class="panel hidden">
-            <h2>Libros</h2>
-
-            <div class="grid-layout">
-
-                <!-- Formulario para crear un libro -->
-                <article class="card">
-                    <h3>Nuevo libro</h3>
+        <!-- ==================== SECCIÓN: LIBROS (CATÁLOGO) ==================== -->
+        <section id="seccion-libros" class="panel hidden catalogo-management">
+            <div class="catalogo-heading">
+                <div>
+                    <p class="catalogo-eyebrow">BOOKNEST · GESTIÓN DEL CATÁLOGO</p>
+                    <h2>Registrar un libro</h2>
+                    <p class="catalogo-muted">Agrega la información principal y después relaciona el libro con sus autores y géneros.</p>
+                </div>
+                <a class="btn btn-outline" href="http://localhost:8081/catalogo">Ver catálogo ↗</a>
+            </div>
+            <div class="catalogo-form-grid">
+                <article class="card catalogo-card">
+                    <div class="catalogo-card-heading"><span class="catalogo-step">01</span><div><h3>Datos del libro</h3><p class="catalogo-muted">Los campos con * son obligatorios.</p></div></div>
                     <form id="form-libro">
-                        <div class="form-group">
-                            <label for="libro-titulo">Título *</label>
-                            <input type="text" id="libro-titulo" required>
+                        <div class="form-group"><label for="libro-titulo">Título del libro *</label><input type="text" id="libro-titulo" maxlength="255" placeholder="Ej. El principito" autocomplete="off" required></div>
+                        <div class="catalogo-fields-two">
+                            <div class="form-group"><label for="libro-paginas">Número de páginas *</label><input type="number" id="libro-paginas" min="1" step="1" placeholder="Ej. 96" required></div>
+                            <div class="form-group"><label for="libro-fecha">Fecha de publicación original</label><input type="date" id="libro-fecha"><small class="catalogo-hint">Fecha de publicación de la obra, si la conoces.</small></div>
                         </div>
-                        <div class="form-group">
-                            <label for="libro-paginas">Páginas *</label>
-                            <input type="number" id="libro-paginas" min="1" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="libro-sinopsis">Sinopsis</label>
-                            <textarea id="libro-sinopsis" rows="3"></textarea>
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Guardar libro</button>
-                        </div>
+                        <div class="form-group"><label for="libro-portada">URL de la portada</label><input type="url" id="libro-portada" placeholder="https://ejemplo.com/portada.jpg" autocomplete="url"><small class="catalogo-hint">Enlace público a una imagen. Opcional.</small></div>
+                        <div class="form-group"><label for="libro-sinopsis">Sinopsis</label><textarea id="libro-sinopsis" rows="5" placeholder="¿De qué trata este libro?"></textarea></div>
+                        <div class="catalogo-preview"><div class="catalogo-cover-frame"><img id="libro-portada-preview" alt="Vista previa de portada" hidden><span id="libro-portada-placeholder">📖<small>Portada</small></span></div><p class="catalogo-muted">Vista previa de la imagen. No se almacena un archivo: se guarda la URL.</p></div>
+                        <div class="form-actions"><button type="submit" class="btn btn-primary" id="btn-guardar-libro">Guardar libro</button><button type="reset" class="btn btn-outline">Limpiar campos</button></div>
+                        <p id="libro-resultado" class="catalogo-result" role="status" aria-live="polite"></p>
                     </form>
                 </article>
-
-                <!-- Ligar autor y género a un libro -->
-                <article class="card">
-                    <h3>Ligar autor y género a un libro</h3>
-
-                    <div class="form-group">
-                        <label for="libro-select">Libro</label>
-                        <select id="libro-select"></select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="autor-select">Autor</label>
-                        <select id="autor-select"></select>
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" id="btn-ligar-autor" class="btn btn-secondary">Ligar autor</button>
-                    </div>
-
-                    <div class="form-group mt-1">
-                        <label for="genero-select">Género</label>
-                        <select id="genero-select"></select>
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" id="btn-ligar-genero" class="btn btn-secondary">Ligar género</button>
-                    </div>
+                <article class="card catalogo-card catalogo-relations">
+                    <div class="catalogo-card-heading"><span class="catalogo-step">02</span><div><h3>Autores y géneros</h3><p class="catalogo-muted">Selecciona el libro creado y relaciona sus datos.</p></div></div>
+                    <div class="form-group"><label for="libro-select">Libro registrado</label><select id="libro-select"></select></div>
+                    <div class="form-group"><label for="autor-select">Autor existente</label><select id="autor-select"></select></div>
+                    <div class="form-actions"><button type="button" id="btn-ligar-autor" class="btn btn-secondary">Asociar autor</button></div>
+                    <div class="form-group mt-1"><label for="genero-select">Género existente</label><select id="genero-select"></select></div>
+                    <div class="form-actions"><button type="button" id="btn-ligar-genero" class="btn btn-secondary">Asociar género</button></div>
+                    <div class="catalogo-tip"><strong>Consejo:</strong> al guardar un libro, lo seleccionamos automáticamente aquí. Las asociaciones se guardan por separado para respetar la API actual.</div>
+                    <a class="catalogo-text-link" href="http://localhost:8081/catalogo">Consultar los libros del catálogo →</a>
                 </article>
-
             </div>
         </section>
 
@@ -507,6 +490,7 @@
     <script src="js/app.js"></script>
     <script src="js/catalogo.js"></script>
     <script src="js/archivos.js"></script>
+    <script src="js/catalogo-nav.js"></script>
 </body>
 
 </html>

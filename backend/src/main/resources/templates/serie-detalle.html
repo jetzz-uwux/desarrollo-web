@@ -6,18 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookNest - Detalle de serie</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/catalogo-ui.css}">
 </head>
 <body>
 
-<header class="navbar">
+<header class="navbar catalogo-navbar">
     <div class="container nav-content">
         <h1>📚 BookNest</h1>
-        <nav>
-            <a class="btn btn-outline"
-               th:href="@{/catalogo}">Catálogo</a>
-            <a class="btn btn-outline"
-               th:href="@{/catalogo/series}">Series</a>
-        </nav>
+        <nav class="catalogo-nav-links" aria-label="Navegación principal">
+                <a class="btn btn-outline" th:href="@{/}">Inicio</a>
+                <a class="btn btn-outline" th:href="@{/catalogo}">Catálogo</a>
+                <a class="btn btn-outline" th:href="@{/catalogo/series}" aria-current="page">Series</a>
+                <a class="btn btn-outline" th:href="@{/#seccion-libros}">Agregar libro</a>
+                <a class="btn btn-outline" th:href="@{/#seccion-resenas}">Reseñas</a>
+                <a class="btn btn-outline" th:href="@{/#seccion-ratings}">Calificaciones</a>
+                <a class="btn btn-outline" th:href="@{/#seccion-estadisticas}">Estadísticas</a>
+                <a class="btn btn-outline" th:href="@{/colecciones.html}">Colecciones</a>
+                <a class="btn btn-outline" th:href="@{/perfil.html}">Perfil</a>
+            </nav>
     </div>
 </header>
 
