@@ -119,9 +119,18 @@
 
         <section class="card mt-1">
             <h3>Archivos disponibles</h3>
-            <p>¿Ya existe esta obra? Puedes añadir una edición PDF desde
-               <a th:href="@{/index.html} + '#seccion-archivos'">Archivos</a>
-               seleccionando este mismo libro, sin crear otra ficha.</p>
+            <p>Sube otra edición de esta obra sin crear una ficha duplicada.</p>
+            <form id="form-pdf-ficha" th:attr="data-book-id=${libro.id}" enctype="multipart/form-data">
+                <div class="form-group"><label for="pdf-ficha-file">Archivo PDF (máximo 50 MB)</label>
+                    <input type="file" id="pdf-ficha-file" accept=".pdf,application/pdf" required></div>
+                <div class="form-group"><label for="pdf-ficha-idioma">Idioma</label>
+                    <select id="pdf-ficha-idioma" required><option value="es">Español</option><option value="en">Inglés</option></select></div>
+                <div class="form-group"><label for="pdf-ficha-isbn">ISBN de la edición (opcional)</label>
+                    <input id="pdf-ficha-isbn" maxlength="20"></div>
+                <label><input type="checkbox" id="pdf-ficha-autorizado" required> Confirmo que tengo autorización para compartir este PDF o que es de dominio público.</label>
+                <div class="form-actions"><button type="submit" class="btn btn-primary">Agregar PDF a esta ficha</button></div>
+                <p id="pdf-ficha-mensaje" role="status" aria-live="polite"></p>
+            </form>
 
             <p th:if="${#lists.isEmpty(archivosLibro)}">
                 Este libro todavía no tiene archivos PDF disponibles.
@@ -171,5 +180,6 @@
     </main>
 
     <script th:src="@{/js/catalogo-titulos.js}"></script>
+    <script th:src="@{/js/catalogo-pdf.js}"></script>
 </body>
 </html>

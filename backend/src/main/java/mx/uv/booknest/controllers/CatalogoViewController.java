@@ -98,12 +98,13 @@ public class CatalogoViewController {
             @RequestParam(required = false) String sort,
             @RequestParam(required = false) String seriesType,
             @RequestParam(required = false) String language,
+            @RequestParam(required = false) String category,
             Model model) {
 
             model.addAttribute("libros",
                     bookService.listar(
                             q, minPages, maxPages,
-                            genreId, authorId, sort, seriesType, language
+                            genreId, authorId, sort, seriesType, language, category
                     ));
 
         model.addAttribute("autores", authorService.listar());
@@ -117,6 +118,7 @@ public class CatalogoViewController {
         model.addAttribute("sort", sort);
         model.addAttribute("seriesType", seriesType);
         model.addAttribute("language", language);
+        model.addAttribute("category", category);
 
         Map<Long, String> nombresAutores = new HashMap<>();
         Map<Long, String> nombresGeneros = new HashMap<>();
@@ -335,7 +337,7 @@ public class CatalogoViewController {
 
         model.addAttribute("serie", serie);
         model.addAttribute("librosSerie", librosSerie);
-        model.addAttribute("todosLibros", bookService.listar(null, null, null, null, null, "title", null, null));
+        model.addAttribute("todosLibros", bookService.listar(null, null, null, null, null, "title", null, null, null));
 
         return "serie-detalle";
     }

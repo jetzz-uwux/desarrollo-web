@@ -83,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const portada = portadaInput.value.trim();
         const libro = {
             mainTitle: document.getElementById("libro-titulo").value.trim(),
+            category: document.getElementById("libro-categoria").value,
             totalPages: parseInt(document.getElementById("libro-paginas").value, 10),
             synopsis: document.getElementById("libro-sinopsis").value.trim(),
             originalPublicationDate: fecha || null,

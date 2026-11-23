@@ -81,7 +81,7 @@ public class BookService {
             this.bookSeriesRepository = bookSeriesRepository;
     }
 
-    public List<Book> listar(String q, Integer minPages, Integer maxPages, Long genreId, Long authorId, String sort, String seriesType, String language){
+    public List<Book> listar(String q, Integer minPages, Integer maxPages, Long genreId, Long authorId, String sort, String seriesType, String language, String category){
         List<Book> libros;
 
         if (q == null || q.isBlank()) {
@@ -125,6 +125,11 @@ public class BookService {
                     }
                 }
             }
+        }
+
+        if (category != null && !category.isBlank()) {
+            String filtroCategoria = category.trim();
+            libros.removeIf(libro -> libro.getCategory() == null || !libro.getCategory().equalsIgnoreCase(filtroCategoria));
         }
 
         if (minPages != null && minPages < 1) {
@@ -348,6 +353,7 @@ public class BookService {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                     "Ya hay fichas con ese título o uno parecido. Revisa las coincidencias y confirma si es una obra distinta");
         }
+        book.setCategory(normalizarCategoria(book.getCategory()));
         return repository.save(book);
     }
 
@@ -374,6 +380,7 @@ public class BookService {
                 && datos.getOriginalPublicationDate().isAfter(java.time.LocalDate.now())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La fecha de publicación no puede ser futura");
         }
+        existente.setCategory(normalizarCategoria(datos.getCategory()));
         existente.setMainTitle(datos.getMainTitle().trim());
         existente.setOriginalPublicationDate(datos.getOriginalPublicationDate());
         existente.setSynopsis(datos.getSynopsis());
@@ -384,6 +391,16 @@ public class BookService {
     }
 
     @Transactional
+    private String normalizarCategoria(String categoria) {
+        if (categoria == null || categoria.isBlank()) return null;
+        String limpia = categoria.trim();
+        if (limpia.length() > 80) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La categoría no puede superar 80 caracteres");
+        if (!Set.of("Ficción", "No ficción", "Académico", "Infantil", "Otro").contains(limpia)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Categoría no válida");
+        }
+        return limpia;
+    }
+
     public void eliminar(Long id) {
         Book existente = obtenerPorId(id);
         if (!bookSeriesRepository.findByBookId(id).isEmpty()) {

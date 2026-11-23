@@ -79,6 +79,7 @@ CREATE INDEX idx_literary_series_name ON literary_series (name);
 CREATE INDEX idx_literary_series_type ON literary_series (series_type);   -- filtro por tipo de serie (RF-02)
 
 CREATE TABLE books (
+    category VARCHAR(80),
     id                        BIGSERIAL PRIMARY KEY,
     main_title                VARCHAR(500) NOT NULL,
     original_publication_date DATE,
@@ -93,6 +94,7 @@ CREATE TABLE books (
     CONSTRAINT ck_books_total_pages CHECK (total_pages > 0),
     CONSTRAINT ck_books_title_not_blank CHECK (btrim(main_title) <> '')
 );
+CREATE INDEX idx_books_category ON books (category);
 CREATE INDEX idx_books_main_title_trgm   ON books USING GIN (main_title gin_trgm_ops);
 CREATE INDEX idx_books_main_title_lower  ON books (LOWER(main_title));    -- orden alfabético / igualdad
 CREATE INDEX idx_books_total_pages       ON books (total_pages);          -- orden/filtro por extensión

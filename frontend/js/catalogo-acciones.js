@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const libro = await respuesta.json();
                 campo("editar-libro-id").value = libro.id;
                 campo("editar-libro-titulo").value = libro.mainTitle || "";
+                campo("editar-libro-categoria").value = libro.category || "";
                 campo("editar-libro-paginas").value = libro.totalPages ?? "";
                 campo("editar-libro-fecha").value = libro.originalPublicationDate || "";
                 campo("editar-libro-portada").value = libro.coverUrl || "";
@@ -70,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const id = campo("editar-libro-id").value;
         const libro = {
             mainTitle: campo("editar-libro-titulo").value.trim(),
+            category: campo("editar-libro-categoria").value,
             totalPages: Number(campo("editar-libro-paginas").value),
             originalPublicationDate: campo("editar-libro-fecha").value || null,
             coverUrl: campo("editar-libro-portada").value.trim() || null,

@@ -54,6 +54,17 @@
                            th:value="${maxPages}">
                 </div>
 
+                <div class="form-group">
+                    <label for="category">Categoría:</label>
+                    <select id="category" name="category">
+                        <option value="">Todas las categorías</option>
+                        <option value="Ficción" th:selected="${category == 'Ficción'}">Ficción</option>
+                        <option value="No ficción" th:selected="${category == 'No ficción'}">No ficción</option>
+                        <option value="Académico" th:selected="${category == 'Académico'}">Académico</option>
+                        <option value="Infantil" th:selected="${category == 'Infantil'}">Infantil</option>
+                        <option value="Otro" th:selected="${category == 'Otro'}">Otro</option>
+                    </select>
+                </div>
                 <!-- Filtrar por género -->
                 <div class="form-group">
                     <label for="genreId">Género:</label>
@@ -193,6 +204,13 @@
                 <div class="form-group">
                     <label for="editar-libro-titulo">Título</label>
                     <input id="editar-libro-titulo" required maxlength="500">
+                </div>
+                <div class="form-group">
+                    <label for="editar-libro-categoria">Categoría</label>
+                    <select id="editar-libro-categoria">
+                        <option value="">Sin categoría</option>
+                        <option>Ficción</option><option>No ficción</option><option>Académico</option><option>Infantil</option><option>Otro</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="editar-libro-paginas">Número de páginas</label>

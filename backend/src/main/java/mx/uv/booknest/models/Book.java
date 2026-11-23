@@ -25,7 +25,11 @@ public class Book {
     private String synopsis;
     private Integer totalPages;
     private String coverUrl;
+    private String category; // Clasificación independiente del género (p. ej., ficción, no ficción)
     private Long createdByUserId; // BigInt su equivalente en Java es Long
+
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
 
     public Book(){} // Constructor vacío
 

@@ -1,6 +1,7 @@
 package mx.uv.booknest.controllers;
 
 import java.util.List;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -56,7 +57,9 @@ public class BookController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Book crear(@RequestBody Book book,
-            @RequestParam(defaultValue = "false") boolean confirmarCoincidencia){
+            @RequestParam(defaultValue = "false") boolean confirmarCoincidencia,
+            HttpServletRequest request){
+        book.setCreatedByUserId((Long) request.getSession(false).getAttribute("booknestUserId"));
         return service.crear(book, confirmarCoincidencia);
     }
 
@@ -80,8 +83,9 @@ public class BookController {
             @RequestParam(required = false) Long authorId,
             @RequestParam(required = false) String sort,
             @RequestParam(required = false) String seriesType,
-            @RequestParam(required = false) String language) {
-        return service.listar(q, minPages, maxPages, genreId, authorId, sort, seriesType, language);
+            @RequestParam(required = false) String language,
+            @RequestParam(required = false) String category) {
+        return service.listar(q, minPages, maxPages, genreId, authorId, sort, seriesType, language, category);
     }
 
     @PostMapping("/{id}/authors")
