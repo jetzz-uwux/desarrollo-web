@@ -4,18 +4,27 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Locale;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import mx.uv.booknest.models.Author;
+import mx.uv.booknest.models.AlternativeTitle;
+import mx.uv.booknest.models.BookFile;
 import mx.uv.booknest.models.Book;
 import mx.uv.booknest.models.BookAuthor;
 import mx.uv.booknest.models.BookGenre;
 import mx.uv.booknest.models.BookSeries;
 import mx.uv.booknest.models.LiterarySeries;
 import mx.uv.booknest.repository.AuthorRepository;
+import mx.uv.booknest.repository.AlternativeTitleRepository;
 import mx.uv.booknest.repository.BookAuthorRepository;
 import mx.uv.booknest.repository.BookFileRepository;
 import mx.uv.booknest.repository.BookGenreRepository;
@@ -37,6 +46,7 @@ import mx.uv.booknest.repository.UserReadingProgressRepository;
 @Service
 public class BookService {
     private final BookRepository repository;
+    private final AlternativeTitleRepository alternativeTitleRepository;
     private final BookFileRepository bookFileRepository;
     private final CollectionBooksRepository collectionBookRepository;
     private final UserReadingProgressRepository userReadingProgressRepository;
@@ -55,8 +65,9 @@ public class BookService {
         AuthorRepository authorRepository, GenreRepository genreRepository,
         BookAuthorRepository bookAuthorRepository, BookGenreRepository bookGenreRepository,
         LiterarySeriesRepository literarySeriesRepository,
-        BookSeriesRepository bookSeriesRepository) {
+        BookSeriesRepository bookSeriesRepository, AlternativeTitleRepository alternativeTitleRepository) {
             this.repository = repository;
+        this.alternativeTitleRepository = alternativeTitleRepository;
             this.bookFileRepository = bookFileRepository;
             this.collectionBookRepository = collectionBookRepository;
             this.userReadingProgressRepository = userReadingProgressRepository;
@@ -70,7 +81,7 @@ public class BookService {
             this.bookSeriesRepository = bookSeriesRepository;
     }
 
-    public List<Book> listar(String q, Integer minPages, Integer maxPages, Long genreId, Long authorId, String sort, String seriesType){
+    public List<Book> listar(String q, Integer minPages, Integer maxPages, Long genreId, Long authorId, String sort, String seriesType, String language){
         List<Book> libros;
 
         if (q == null || q.isBlank()) {
@@ -80,6 +91,14 @@ public class BookService {
             libros = new ArrayList<>(
                 repository.findByMainTitleContainingIgnoreCase(q)
             );
+
+            // También buscar por títulos alternativos registrados en español o inglés.
+            for (AlternativeTitle alternativo : alternativeTitleRepository.findByTitleContainingIgnoreCase(q)) {
+                Book libro = alternativo.getBook();
+                if (libro != null && libros.stream().noneMatch(b -> b.getId().equals(libro.getId()))) {
+                    libros.add(libro);
+                }
+            }
 
             // Buscar autores cuyo nombre contenga el texto
             List<Author> autores =
@@ -108,10 +127,20 @@ public class BookService {
             }
         }
 
+        if (minPages != null && minPages < 1) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El mínimo de páginas debe ser positivo");
+        }
+        if (maxPages != null && maxPages < 1) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El máximo de páginas debe ser positivo");
+        }
+        if (minPages != null && maxPages != null && minPages > maxPages) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El mínimo de páginas supera el máximo");
+        }
+
         if (minPages != null) {
             List<Book> filtrados = new ArrayList<>();
             for (Book libro : libros) {
-                if (libro.getTotalPages() >= minPages) {
+                if (libro.getTotalPages() != null && libro.getTotalPages() >= minPages) {
                     filtrados.add(libro);
                 }
             }
@@ -121,7 +150,7 @@ public class BookService {
         if (maxPages != null) {
             List<Book> filtrados = new ArrayList<>();
             for (Book libro : libros) {
-                if (libro.getTotalPages() <= maxPages) {
+                if (libro.getTotalPages() != null && libro.getTotalPages() <= maxPages) {
                     filtrados.add(libro);
                 }
             }
@@ -158,9 +187,14 @@ public class BookService {
 
 
         if (seriesType != null && !seriesType.isBlank()) {
-
+            String tipo = seriesType.trim().toLowerCase(Locale.ROOT);
+            if (tipo.equals("bilogía")) tipo = "bilogia";
+            if (tipo.equals("trilogía")) tipo = "trilogia";
+            if (!Set.of("bilogia", "trilogia", "saga").contains(tipo)) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tipo de serie no válido");
+            }
             List<LiterarySeries> series =
-                literarySeriesRepository.findBySeriesType(seriesType);
+                literarySeriesRepository.findBySeriesType(tipo);
 
             List<Long> seriesIds = new ArrayList<>();
 
@@ -187,25 +221,74 @@ public class BookService {
             libros = filtrados;
         }
 
+        // El idioma corresponde a los PDF disponibles, no al idioma de la ficha.
+        if (language != null && !language.isBlank()) {
+            if (!language.equals("es") && !language.equals("en")) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Idioma no válido (es/en)");
+            }
+            Set<Long> ids = new HashSet<>();
+            for (BookFile archivo : bookFileRepository.findByLanguage(language)) {
+                if (archivo.getBook() != null) ids.add(archivo.getBook().getId());
+            }
+            libros.removeIf(libro -> !ids.contains(libro.getId()));
+        }
+
         if (sort != null) {
         switch (sort) {
+            case "best-rated":
+                Map<Long, Double> promedios = new HashMap<>();
+                ratingRepository.findBookRatingStats(null).forEach(r -> {
+                    if (r.getAverageScore() != null) promedios.put(r.getBookId(), r.getAverageScore());
+                });
+                libros.sort(Comparator.comparingDouble((Book b) -> promedios.getOrDefault(b.getId(), -1.0)).reversed()
+                    .thenComparing(Book::getMainTitle, String.CASE_INSENSITIVE_ORDER));
+                break;
+            case "most-read":
+                Map<Long, Long> lectores = new HashMap<>();
+                ratingRepository.findMostReadBooks().forEach(r -> lectores.put(r.getBookId(), r.getFinishedReadersCount()));
+                libros.sort(Comparator.comparingLong((Book b) -> lectores.getOrDefault(b.getId(), 0L)).reversed()
+                    .thenComparing(Book::getMainTitle, String.CASE_INSENSITIVE_ORDER));
+                break;
             case "title":
                 libros.sort(Comparator.comparing(
                     Book::getMainTitle, String.CASE_INSENSITIVE_ORDER));
                 break;
 
             case "pages-asc":
-                libros.sort(Comparator.comparing(Book::getTotalPages));
+                libros.sort(Comparator.comparing(Book::getTotalPages, Comparator.nullsLast(Integer::compareTo)));
                 break;
 
             case "pages-desc":
-                libros.sort(Comparator.comparing(
-                    Book::getTotalPages).reversed());
+                libros.sort(Comparator.comparing(Book::getTotalPages, Comparator.nullsLast(Comparator.reverseOrder())));
                 break;
             }
         }
 
         return libros;
+    }
+
+    /** Coincidencias sugeridas: no fusiona ediciones ni obras automáticamente. */
+    public List<Book> posiblesDuplicados(String titulo, Long authorId, String isbn) {
+        if ((titulo == null || titulo.isBlank()) && authorId == null && (isbn == null || isbn.isBlank())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Indica título, autor o ISBN");
+        }
+        Set<Long> ids = new HashSet<>();
+        String consulta = titulo == null ? "" : titulo.trim();
+        if (!consulta.isEmpty()) {
+            repository.findByMainTitleContainingIgnoreCase(consulta).forEach(b -> ids.add(b.getId()));
+            alternativeTitleRepository.findByTitleContainingIgnoreCase(consulta).forEach(a -> ids.add(a.getBook().getId()));
+        }
+        if (authorId != null) {
+            // Mostrar obras del mismo autor aunque el título no coincida.
+            bookAuthorRepository.findByAuthorId(authorId).forEach(a -> ids.add(a.getBookId()));
+        }
+        if (isbn != null && !isbn.isBlank()) {
+            bookFileRepository.findByEditionIsbn(isbn.trim()).ifPresent(f -> ids.add(f.getBook().getId()));
+        }
+        List<Book> coincidencias = new ArrayList<>();
+        for (Long id : ids) repository.findById(id).ifPresent(coincidencias::add);
+        coincidencias.sort(Comparator.comparing(Book::getMainTitle, String.CASE_INSENSITIVE_ORDER));
+        return coincidencias;
     }
 
     public Book obtenerPorId(Long id){
@@ -235,8 +318,12 @@ public class BookService {
         return libros;
     }
 
-    public Book crear(Book book){
+    @Transactional
+    public Book crear(Book book, boolean confirmarCoincidencia){
 
+        if (book == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Los datos del libro son obligatorios");
+        }
         if (book.getTotalPages()== null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El número de páginas es obligatorio");
         }
@@ -247,12 +334,29 @@ public class BookService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El título es obligatorio");
         }
         
+        book.setMainTitle(book.getMainTitle().trim());
+        if (book.getMainTitle().length() > 500) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El título supera los 500 caracteres");
+        }
+        if (book.getOriginalPublicationDate() != null
+                && book.getOriginalPublicationDate().isAfter(java.time.LocalDate.now())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La fecha de publicación no puede ser futura");
+        }
+        // La verificación se repite en el servidor; el usuario debe confirmar
+        // expresamente si se trata de una edición/obra diferente.
+        if (!confirmarCoincidencia && !posiblesDuplicados(book.getMainTitle(), null, null).isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT,
+                    "Ya hay fichas con ese título o uno parecido. Revisa las coincidencias y confirma si es una obra distinta");
+        }
         return repository.save(book);
     }
 
     public Book actualizar(Long id, Book datos) {
         Book existente = obtenerPorId(id);
 
+        if (datos == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Los datos del libro son obligatorios");
+        }
         if (datos.getTotalPages()== null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El número de páginas es obligatorio");
         }
@@ -263,7 +367,14 @@ public class BookService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El título es obligatorio");
         }
 
-        existente.setMainTitle(datos.getMainTitle());
+        if (datos.getMainTitle().trim().length() > 500) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El título supera los 500 caracteres");
+        }
+        if (datos.getOriginalPublicationDate() != null
+                && datos.getOriginalPublicationDate().isAfter(java.time.LocalDate.now())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La fecha de publicación no puede ser futura");
+        }
+        existente.setMainTitle(datos.getMainTitle().trim());
         existente.setOriginalPublicationDate(datos.getOriginalPublicationDate());
         existente.setSynopsis(datos.getSynopsis());
         existente.setTotalPages(datos.getTotalPages());
@@ -272,8 +383,15 @@ public class BookService {
         return repository.save(existente);
     }
 
+    @Transactional
     public void eliminar(Long id) {
         Book existente = obtenerPorId(id);
+        if (!bookSeriesRepository.findByBookId(id).isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "El libro está asociado a una serie");
+        }
+        if (!alternativeTitleRepository.findByBookId(id).isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "El libro tiene títulos alternativos asociados");
+        }
         if(bookFileRepository.existsByBookId(id)){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "No se puede eliminar el libro porque está asociado a un archivo");
         }
@@ -290,6 +408,10 @@ public class BookService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "No se puede eliminar el libro porque cuentan con reseñas");
         }
 
+        // Las relaciones propias del catálogo se retiran con el libro.
+        // Nunca se borran datos pertenecientes a módulos ajenos.
+        bookAuthorRepository.deleteAll(bookAuthorRepository.findByBookId(id));
+        bookGenreRepository.deleteAll(bookGenreRepository.findByBookId(id));
         repository.delete(existente);
     }
 

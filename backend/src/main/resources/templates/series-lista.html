@@ -39,7 +39,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Tipo</th>
+                        <th>Tipo</th><th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,12 +52,35 @@
                             </a>
                         </td>                    
                         <td th:text="${serie.seriesType}"></td>
+                        <td>
+                            <button type="button" class="btn btn-outline js-editar-serie"
+                                th:attr="data-id=${serie.id},data-name=${serie.name},data-type=${serie.seriesType}">Editar</button>
+                            <button type="button" class="btn btn-outline js-eliminar-serie"
+                                th:attr="data-id=${serie.id},data-name=${serie.name}">Eliminar</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
+        <section class="card mt-1" id="serie-editar-panel" hidden>
+            <h3>Editar serie</h3>
+            <form id="serie-editar-form">
+                <input type="hidden" id="serie-editar-id">
+                <div class="form-group"><label for="serie-editar-nombre">Nombre</label>
+                    <input id="serie-editar-nombre" required maxlength="255"></div>
+                <div class="form-group"><label for="serie-editar-tipo">Tipo</label>
+                    <select id="serie-editar-tipo" required>
+                        <option value="bilogia">Bilogía</option><option value="trilogia">Trilogía</option>
+                        <option value="saga">Saga</option>
+                    </select></div>
+                <button type="submit" class="btn btn-primary">Guardar serie</button>
+                <button type="button" id="serie-cancelar" class="btn btn-outline">Cancelar</button>
+            </form>
+        </section>
+        <p id="serie-lista-mensaje" role="status" aria-live="polite"></p>
     </main>
+    <script th:src="@{/js/series-acciones.js}"></script>
 
 </body>
 </html>

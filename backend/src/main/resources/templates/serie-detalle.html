@@ -71,6 +71,10 @@
                                th:href="@{/catalogo/libros/{id}(id=${dato.libro.id})}">
                                 Ver ficha
                             </a>
+                            <button type="button" class="btn btn-outline js-quitar-serie"
+                                th:attr="data-book-id=${dato.libro.id},data-book-title=${dato.libro.mainTitle}">
+                                Quitar de serie
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -78,54 +82,31 @@
         </div>
     </section>
 
-    <!-- Calificación pública -->
     <section class="card mt-1">
-        <h3>Calificación de los lectores</h3>
-
-        <p>
-            <strong>Promedio:</strong>
-            <span th:text="${calificacion}">
-                Sin calificar
-            </span>
-        </p>
-
-        <p>
-            <strong>Total de calificaciones:</strong>
-            <span th:text="${totalCalificaciones}">0</span>
-        </p>
+        <h3>Asociar un libro a esta serie</h3>
+        <p>Selecciona un libro e indica su volumen y orden de lectura.</p>
+        <form id="form-asociar-serie" th:attr="data-series-id=${serie.id}">
+            <div class="form-group">
+                <label for="serie-libro">Libro</label>
+                <select id="serie-libro" required>
+                    <option value="">Selecciona un libro</option>
+                    <option th:each="libro : ${todosLibros}"
+                            th:value="${libro.id}" th:text="${libro.mainTitle}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="serie-volumen">Número de volumen</label>
+                <input type="number" id="serie-volumen" min="1" required>
+            </div>
+            <div class="form-group">
+                <label for="serie-orden">Orden de lectura</label>
+                <input type="number" id="serie-orden" min="1" required>
+            </div>
+            <button class="btn btn-primary" type="submit">Asociar libro</button>
+            <p id="serie-mensaje" role="status" aria-live="polite"></p>
+        </form>
     </section>
-
-    <!-- Reseñas públicas -->
-    <section class="card mt-1">
-        <h3>Reseñas de lectores</h3>
-
-        <p th:if="${#lists.isEmpty(resenasLibro)}">
-            Este libro todavía no tiene reseñas.
-        </p>
-
-        <div th:each="resena : ${resenasLibro}"
-            class="book-review">
-
-            <p>
-                <strong th:text="${resena.usuario}">
-                    Usuario
-                </strong>
-            </p>
-
-            <p th:text="${resena.contenido}">
-                Contenido de la reseña
-            </p>
-
-            <p th:if="${resena.fecha != null}">
-                <small th:text="${resena.fecha}">
-                    Fecha
-                </small>
-            </p>
-
-            <hr>
-        </div>
-</section>
-
 </main>
+<script th:src="@{/js/serie-asociar.js}"></script>
 </body>
 </html>

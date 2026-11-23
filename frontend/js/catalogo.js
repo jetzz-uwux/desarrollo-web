@@ -94,7 +94,50 @@ document.addEventListener("DOMContentLoaded", () => {
         boton.textContent = "Guardando...";
         resultado.textContent = "";
         try {
-            const creado = await BookNestAPI.createBook(libro);
+            let confirmarCoincidencia = false;
+            // RF-25/RF-27: comprobar posibles coincidencias antes de crear.
+            // La elección final es del usuario; no se fusionan fichas automáticamente.
+            const respuestaDuplicados = await fetch(
+                "/api/books/posibles-duplicados?titulo=" + encodeURIComponent(libro.mainTitle)
+            );
+            if (!respuestaDuplicados.ok) throw new Error("No se pudieron comprobar posibles duplicados");
+            const coincidencias = await respuestaDuplicados.json();
+            if (coincidencias.length > 0) {
+                const nombres = coincidencias.slice(0, 5)
+                    .map(item => `• ${item.mainTitle} (ID ${item.id})`).join("\n");
+                const continuar = window.confirm(
+                    "Ya existen fichas que podrían corresponder a esta obra:\n" + nombres +
+                    "\n\nAceptar: crear una ficha diferente.\nCancelar: revisar las existentes y evitar duplicados."
+                );
+                if (!continuar) {
+                    resultado.replaceChildren();
+                    resultado.append(document.createTextNode(
+                        "Revisa las fichas existentes antes de crear otra: "
+                    ));
+                    coincidencias.slice(0, 5).forEach((item, indice) => {
+                        if (indice > 0) resultado.append(document.createTextNode(" · "));
+                        const enlace = document.createElement("a");
+                        enlace.href = "/catalogo/libros/" + encodeURIComponent(item.id);
+                        enlace.textContent = item.mainTitle;
+                        resultado.append(enlace);
+                    });
+                    resultado.className = "catalogo-result catalogo-result-error";
+                    return;
+                }
+                confirmarCoincidencia = true;
+            }
+            const respuestaCrear = await fetch(
+                "/api/books" + (confirmarCoincidencia ? "?confirmarCoincidencia=true" : ""),
+                { method: "POST", headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(libro) }
+            );
+            if (!respuestaCrear.ok) {
+                if (respuestaCrear.status === 409) {
+                    throw new Error("Ya existe una ficha similar. Vuelve a revisar el catálogo antes de crear otra.");
+                }
+                throw new Error(`No se pudo crear el libro (HTTP ${respuestaCrear.status})`);
+            }
+            const creado = await respuestaCrear.json();
             avisar("Libro creado correctamente", "success");
             e.target.reset();
             await cargarSelectores();

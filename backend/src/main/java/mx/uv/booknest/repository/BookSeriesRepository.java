@@ -13,6 +13,10 @@ import mx.uv.booknest.models.BookSeries;
 
 public interface BookSeriesRepository extends JpaRepository <BookSeries,Long> {
     boolean existsBySeriesId (Long seriesId);
+    boolean existsByBookIdAndSeriesId(Long bookId, Long seriesId);
+    boolean existsBySeriesIdAndVolumeNumber(Long seriesId, Integer volumeNumber);
+    boolean existsBySeriesIdAndReadingOrder(Long seriesId, Integer readingOrder);
+    List<BookSeries> findByBookId(Long bookId);
     List<BookSeries> findBySeriesIdIn(List<Long> seriesIds);
     List<BookSeries> findBySeriesIdOrderByReadingOrderAsc(Long seriesId);
 }

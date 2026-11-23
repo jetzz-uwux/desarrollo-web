@@ -16,4 +16,5 @@ public interface BookGenreRepository extends JpaRepository<BookGenre, Long>{
     boolean existsByBookIdAndGenreId(Long bookId, Long genreId);
 
     List<BookGenre> findByGenreId(Long genreId);
+    List<BookGenre> findByBookId(Long bookId);
 }

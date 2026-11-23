@@ -24,6 +24,7 @@ import mx.uv.booknest.models.LiterarySeries;
 import mx.uv.booknest.models.Review;
 
 import mx.uv.booknest.repository.BookSeriesRepository;
+import mx.uv.booknest.repository.AlternativeTitleRepository;
 import mx.uv.booknest.repository.AuthorRepository;
 import mx.uv.booknest.repository.GenreRepository;
 import mx.uv.booknest.repository.BookAuthorRepository;
@@ -51,6 +52,7 @@ public class CatalogoViewController {
     private final BookAuthorRepository bookAuthorRepository;
     private final BookGenreRepository bookGenreRepository;
     private final BookSeriesRepository bookSeriesRepository;
+    private final AlternativeTitleRepository alternativeTitleRepository;
 
 
     public CatalogoViewController(
@@ -62,7 +64,8 @@ public class CatalogoViewController {
             GenreRepository genreRepository,
             BookAuthorRepository bookAuthorRepository,
             BookGenreRepository bookGenreRepository,
-            BookSeriesRepository bookSeriesRepository, 
+            BookSeriesRepository bookSeriesRepository,
+            AlternativeTitleRepository alternativeTitleRepository,
             RatingService ratingService,
             ReviewService reviewService,
             BookFileService bookFileService) {
@@ -76,6 +79,7 @@ public class CatalogoViewController {
         this.bookAuthorRepository = bookAuthorRepository;
         this.bookGenreRepository = bookGenreRepository;
         this.bookSeriesRepository = bookSeriesRepository;
+        this.alternativeTitleRepository = alternativeTitleRepository;
         this.ratingService = ratingService;
         this.reviewService = reviewService;
         this.bookFileService = bookFileService;
@@ -93,12 +97,13 @@ public class CatalogoViewController {
             @RequestParam(required = false) Long authorId,
             @RequestParam(required = false) String sort,
             @RequestParam(required = false) String seriesType,
+            @RequestParam(required = false) String language,
             Model model) {
 
             model.addAttribute("libros",
                     bookService.listar(
                             q, minPages, maxPages,
-                            genreId, authorId, sort, seriesType
+                            genreId, authorId, sort, seriesType, language
                     ));
 
         model.addAttribute("autores", authorService.listar());
@@ -111,6 +116,7 @@ public class CatalogoViewController {
         model.addAttribute("authorId", authorId);
         model.addAttribute("sort", sort);
         model.addAttribute("seriesType", seriesType);
+        model.addAttribute("language", language);
 
         Map<Long, String> nombresAutores = new HashMap<>();
         Map<Long, String> nombresGeneros = new HashMap<>();
@@ -165,6 +171,7 @@ public class CatalogoViewController {
     @GetMapping("/catalogo/libros/{id}")
     public String mostrarLibro(@PathVariable Long id, Model model) {
         model.addAttribute("libro", bookService.obtenerPorId(id));
+        model.addAttribute("titulosAlternativos", alternativeTitleRepository.findByBookId(id));
 
         Map<Long, String> autoresPorId = new HashMap<>();
         for (Author autor : authorRepository.findAll()) {
@@ -328,6 +335,7 @@ public class CatalogoViewController {
 
         model.addAttribute("serie", serie);
         model.addAttribute("librosSerie", librosSerie);
+        model.addAttribute("todosLibros", bookService.listar(null, null, null, null, null, "title", null, null));
 
         return "serie-detalle";
     }

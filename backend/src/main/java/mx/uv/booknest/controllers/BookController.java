@@ -36,6 +36,13 @@ public class BookController {
         this.service=service;
     }
 
+    @GetMapping("/posibles-duplicados")
+    public List<Book> posiblesDuplicados(@RequestParam(required = false) String titulo,
+            @RequestParam(required = false) Long authorId,
+            @RequestParam(required = false) String isbn) {
+        return service.posiblesDuplicados(titulo, authorId, isbn);
+    }
+
     @GetMapping ("/{id}")
     public Book obtener(@PathVariable Long id){
         return service.obtenerPorId(id);
@@ -48,8 +55,9 @@ public class BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Book crear(@RequestBody Book book){
-        return service.crear(book);
+    public Book crear(@RequestBody Book book,
+            @RequestParam(defaultValue = "false") boolean confirmarCoincidencia){
+        return service.crear(book, confirmarCoincidencia);
     }
 
     @PutMapping ("/{id}")
@@ -71,8 +79,9 @@ public class BookController {
             @RequestParam(required = false) Long genreId,
             @RequestParam(required = false) Long authorId,
             @RequestParam(required = false) String sort,
-            @RequestParam(required = false) String seriesType) {
-        return service.listar(q, minPages, maxPages, genreId, authorId, sort, seriesType);
+            @RequestParam(required = false) String seriesType,
+            @RequestParam(required = false) String language) {
+        return service.listar(q, minPages, maxPages, genreId, authorId, sort, seriesType, language);
     }
 
     @PostMapping("/{id}/authors")
