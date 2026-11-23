@@ -76,11 +76,11 @@ function guardarProgreso() {
     }
 
     let valorPaginaTexto = ""
-        if (inputPaginaActual) {
-            valorPaginaTexto = inputPaginaActual.value
-        }
-        const paginaActual = parseInt(valorPaginaTexto, 10)
-    
+    if (inputPaginaActual) {
+        valorPaginaTexto = inputPaginaActual.value
+    }
+    const paginaActual = parseInt(valorPaginaTexto, 10)
+
     if (!libroId) {
         mostrarMensaje("Selecciona un libro.", false)
         return
@@ -110,6 +110,9 @@ function guardarProgreso() {
                 await lanzarErrorHttp(respuesta, "No se pudo guardar el progreso")
             }
             mostrarMensaje("Progreso guardado correctamente.", true)
+            if (typeof cargarTablaColeccionYProgreso === "function") {
+                cargarTablaColeccionYProgreso()
+            }
         })
         .catch(error => {
             console.error("Error POST progreso:", error)

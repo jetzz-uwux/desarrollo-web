@@ -1,0 +1,1 @@
+Estoy teniendo problemas para que se registren los cambios en mi tabla de colecciones, cual es el problema?

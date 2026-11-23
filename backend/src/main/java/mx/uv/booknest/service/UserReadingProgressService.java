@@ -1,6 +1,7 @@
 package mx.uv.booknest.service;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +31,22 @@ public class UserReadingProgressService {
 
     public List<UserReadingProgress> listarTodos() {
         return progressRepository.findAll();
+    }
+
+    public List<UserReadingProgress> listarPorUsuario(Long userId) {
+        usersRepository.findById(userId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+
+        List<UserReadingProgress> todos = progressRepository.findAll();
+        List<UserReadingProgress> delUsuario = new ArrayList<>();
+
+        for (UserReadingProgress progreso : todos) {
+            if (progreso.getUser() != null && Long.valueOf(progreso.getUser().getId()).equals(userId)) {
+                delUsuario.add(progreso);
+            }
+        }
+
+        return delUsuario;
     }
 
     public UserReadingProgress obtenerPorId(Long id) {

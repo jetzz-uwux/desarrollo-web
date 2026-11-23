@@ -1,12 +1,14 @@
 package mx.uv.booknest.service;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import mx.uv.booknest.models.Book;
@@ -36,6 +38,26 @@ public class UserCollectionService {
     //listar las colecciones
     public List<UserCollection> listarTodas() {
         return collectionRepository.findAll();
+    }
+
+    //Listar libros de una colección
+    public List<Book> listarLibrosDeColeccion(Long collectionId) {
+        if (!collectionRepository.existsById(collectionId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Colección no encontrada");
+        }
+
+        List<CollectionBooks> relaciones = collectionBooksRepository.findAll();
+        List<Book> librosColeccion = new ArrayList<>();
+
+        for (CollectionBooks relacion : relaciones) {
+            if (relacion.getUserCollection() != null
+                    && relacion.getUserCollection().getId().equals(collectionId)
+                    && relacion.getBook() != null) {
+                librosColeccion.add(relacion.getBook());
+            }
+        }
+
+        return librosColeccion;
     }
 
     //Obtener colección por ID
@@ -82,6 +104,8 @@ public class UserCollectionService {
         CollectionBooks collectionBook = new CollectionBooks();
         collectionBook.setUserCollection(collection);
         collectionBook.setBook(book);
+        collectionBook.setCreatedAt(OffsetDateTime.now());
+        collectionBook.setUpdatedAt(OffsetDateTime.now());
 
         return collectionBooksRepository.save(collectionBook);
     }
@@ -100,10 +124,19 @@ public class UserCollectionService {
     }
 
     // Eliminar colección
+    @Transactional
     public void eliminarColeccion(Long id) {
         if (!collectionRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Colección no encontrada");
         }
+
+        List<CollectionBooks> relaciones = collectionBooksRepository.findAll();
+        for (CollectionBooks relacion : relaciones) {
+            if (relacion.getUserCollection() != null && relacion.getUserCollection().getId().equals(id)) {
+                collectionBooksRepository.delete(relacion);
+            }
+        }
+
         collectionRepository.deleteById(id);
     }
 }

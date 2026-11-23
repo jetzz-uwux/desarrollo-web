@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import mx.uv.booknest.models.Book;
 import mx.uv.booknest.models.UserCollection;
 import mx.uv.booknest.service.UserCollectionService;
 
@@ -25,7 +26,13 @@ public class UserCollectionController {
         return ResponseEntity.ok(collections);
     }
 
-    
+    // FUNCION: GET /api/collections/{collectionId}/books : Obtener libros de una colección
+    @GetMapping("/{collectionId}/books")
+    public ResponseEntity<List<Book>> listarLibrosDeColeccion(@PathVariable Long collectionId) {
+        List<Book> libros = collectionService.listarLibrosDeColeccion(collectionId);
+        return ResponseEntity.ok(libros);
+    }
+
     @PostMapping
     public ResponseEntity<String> crearColeccion(@RequestBody UserCollection collection) {
         collectionService.guardarColeccion(collection);

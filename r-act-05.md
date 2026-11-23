@@ -7,6 +7,6 @@
 | Actividad | Integrante responsable | Enlace a commit |
 | :--- | :--- | :--- |
 | Revisión y ajustes de catálogo y series | Integrante 1 (Jetzaly) | `<commit-jetzaly>` |
-| Validación de carga y descarga de PDFs | Integrante 2 (Juan Luis) | `<commit-juanluis>` |
-| Pruebas de colecciones, progreso y README | Integrante 3 (Hans) | `<commit-hans>` |
+| Validación de carga y descarga de PDFs | Integrante 2 (Hans) |`<commit-hans>`|
+| Pruebas de colecciones, progreso y README | Integrante 3 (Juan Luis) | `<commit-juanluis>`   |
 | Datos de prueba de series, prueba cruzada de catálogo/series y evidencias IAG | Integrante 4 (Camila) | `3dc19bc` (https://github.com/jetzz-uwux/desarrollo-web/commit/3dc19bc) |
