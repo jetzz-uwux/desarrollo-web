@@ -20,8 +20,11 @@
                 <button type="button" class="nav-btn" data-target="seccion-libros">Libros</button>
                 <button type="button" class="nav-btn" data-target="seccion-series">Series</button>
                 <button type="button" class="nav-btn" data-target="seccion-archivos">Archivos</button>
-                <a class="btn btn-outline" href="http://localhost:8081/catalogo">Catálogo</a>
-                <a class="btn btn-outline" href="http://localhost:8081/catalogo/series">Lista de series</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" href="http://localhost:8081/catalogo">Catálogo</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" href="http://localhost:8081/catalogo/series">Lista de series</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" href="/colecciones.html">Colecciones</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" href="/perfil.html">Perfil</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" href="/login.html">Login / Registro</a>
             </nav>
         </div>
     </header>
@@ -78,7 +81,7 @@
                             </select>
                             <input type="number" id="filter-review-user" min="1" placeholder="Filtrar ID usuario"
                                 class="input-sm">
-                            <button type="button" class="btn btn-outline" id="btn-filter-reviews">Filtrar</button>
+                            <button type="button" class="nav-btn" style="display:inline-block;text-decoration:none" id="btn-filter-reviews">Filtrar</button>
                         </div>
                     </div>
 
@@ -143,7 +146,7 @@
 
                         <div class="form-actions">
                             <button type="submit" class="btn btn-primary" id="btn-rating-create">Guardar Nueva</button>
-                            <button type="button" class="btn btn-outline" id="btn-rating-update">Actualizar por
+                            <button type="button" class="nav-btn" style="display:inline-block;text-decoration:none" id="btn-rating-update">Actualizar por
                                 ID</button>
                             <button type="button" class="btn btn-danger" id="btn-rating-delete">Eliminar por ID</button>
                         </div>
@@ -154,7 +157,7 @@
                 <article class="card">
                     <div class="table-header">
                         <h3>Valoración Promedio por Libro</h3>
-                        <button type="button" class="btn btn-outline" id="btn-refresh-ratings">Actualizar</button>
+                        <button type="button" class="nav-btn" style="display:inline-block;text-decoration:none" id="btn-refresh-ratings">Actualizar</button>
                     </div>
 
                     <div class="table-responsive">
@@ -182,7 +185,7 @@
         <section id="seccion-estadisticas" class="panel hidden">
             <div class="table-header">
                 <h2>Estadísticas Globales y Personales</h2>
-                <button type="button" class="btn btn-outline" id="btn-load-stats">Recargar Todo</button>
+                <button type="button" class="nav-btn" style="display:inline-block;text-decoration:none" id="btn-load-stats">Recargar Todo</button>
             </div>
 
             <div class="grid-layout-equal">
@@ -242,7 +245,7 @@
                     <h2>Registrar un libro</h2>
                     <p class="catalogo-muted">Agrega la información principal y después relaciona el libro con sus autores y géneros.</p>
                 </div>
-                <a class="btn btn-outline" href="http://localhost:8081/catalogo">Ver catálogo ↗</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" href="http://localhost:8081/catalogo">Ver catálogo ↗</a>
             </div>
             <div class="catalogo-form-grid">
                 <article class="card catalogo-card">
@@ -256,7 +259,7 @@
                         <div class="form-group"><label for="libro-portada">URL de la portada</label><input type="url" id="libro-portada" placeholder="https://ejemplo.com/portada.jpg" autocomplete="url"><small class="catalogo-hint">Enlace público a una imagen. Opcional.</small></div>
                         <div class="form-group"><label for="libro-sinopsis">Sinopsis</label><textarea id="libro-sinopsis" rows="5" placeholder="¿De qué trata este libro?"></textarea></div>
                         <div class="catalogo-preview"><div class="catalogo-cover-frame"><img id="libro-portada-preview" alt="Vista previa de portada" hidden><span id="libro-portada-placeholder">📖<small>Portada</small></span></div><p class="catalogo-muted">Vista previa de la imagen. No se almacena un archivo: se guarda la URL.</p></div>
-                        <div class="form-actions"><button type="submit" class="btn btn-primary" id="btn-guardar-libro">Guardar libro</button><button type="reset" class="btn btn-outline">Limpiar campos</button></div>
+                        <div class="form-actions"><button type="submit" class="btn btn-primary" id="btn-guardar-libro">Guardar libro</button><button type="reset" class="nav-btn" style="display:inline-block;text-decoration:none">Limpiar campos</button></div>
                         <p id="libro-resultado" class="catalogo-result" role="status" aria-live="polite"></p>
                     </form>
                 </article>
@@ -377,7 +380,7 @@
                                 <option value="en">Inglés</option>
                             </select>
                             <input type="text" id="filter-file-q" placeholder="Buscar nombre..." class="input-sm">
-                            <button type="button" class="btn btn-outline" id="btn-filter-files">Filtrar</button>
+                            <button type="button" class="nav-btn" style="display:inline-block;text-decoration:none" id="btn-filter-files">Filtrar</button>
                         </div>
                     </div>
 
@@ -459,7 +462,7 @@
                                 <option value="en">Inglés</option>
                             </select>
                             <input type="text" id="filter-alt-q" placeholder="Buscar título..." class="input-sm">
-                            <button type="button" class="btn btn-outline" id="btn-filter-alt">Filtrar</button>
+                            <button type="button" class="nav-btn" style="display:inline-block;text-decoration:none" id="btn-filter-alt">Filtrar</button>
                         </div>
                     </div>
 

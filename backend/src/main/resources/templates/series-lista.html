@@ -5,23 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookNest - Series literarias</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
-    <link rel="stylesheet" th:href="@{/css/catalogo-ui.css}">
 </head>
 <body>
 
-    <header class="navbar catalogo-navbar">
+    <header class="navbar">
         <div class="container nav-content">
             <h1>📚 BookNest</h1>
-            <nav class="catalogo-nav-links" aria-label="Navegación principal">
-                <a class="btn btn-outline" th:href="@{/}">Inicio</a>
-                <a class="btn btn-outline" th:href="@{/catalogo}">Catálogo</a>
-                <a class="btn btn-outline" th:href="@{/catalogo/series}" aria-current="page">Series</a>
-                <a class="btn btn-outline" th:href="@{/#seccion-libros}">Agregar libro</a>
-                <a class="btn btn-outline" th:href="@{/#seccion-resenas}">Reseñas</a>
-                <a class="btn btn-outline" th:href="@{/#seccion-ratings}">Calificaciones</a>
-                <a class="btn btn-outline" th:href="@{/#seccion-estadisticas}">Estadísticas</a>
-                <a class="btn btn-outline" th:href="@{/colecciones.html}">Colecciones</a>
-                <a class="btn btn-outline" th:href="@{/perfil.html}">Perfil</a>
+            <nav aria-label="Navegación principal">
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" th:href="@{/index.html} + '#seccion-resenas'">Reseñas</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" th:href="@{/index.html} + '#seccion-ratings'">Calificaciones</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" th:href="@{/index.html} + '#seccion-estadisticas'">Estadísticas</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" th:href="@{/index.html} + '#seccion-libros'">Libros</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" th:href="@{/index.html} + '#seccion-series'">Series</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" th:href="@{/index.html} + '#seccion-archivos'">Archivos</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none"  th:href="@{/catalogo}">Catálogo</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" aria-current="page" th:href="@{/catalogo/series}">Lista de series</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" th:href="@{/colecciones.html}">Colecciones</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" th:href="@{/perfil.html}">Perfil</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" th:href="@{/login.html}">Login / Registro</a>
             </nav>
         </div>
     </header>
