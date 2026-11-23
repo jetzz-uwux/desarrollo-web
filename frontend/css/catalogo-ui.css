@@ -1,0 +1,32 @@
+/* BookNest · Estilos exclusivos del módulo Catálogo y Series */
+.catalogo-management{--catalogo-accent:#466c67;--catalogo-light:#eef5f1}
+.catalogo-heading{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin:0 0 1.35rem}
+.catalogo-heading h2{font-size:clamp(1.55rem,3vw,2rem);margin:.2rem 0 .45rem;color:#293c38}
+.catalogo-eyebrow{font-size:.73rem;letter-spacing:.13em;font-weight:800;color:var(--catalogo-accent);margin:0}
+.catalogo-muted{color:#697775;line-height:1.55;font-size:.91rem;margin:.2rem 0}
+.catalogo-form-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(290px,1fr);gap:1.3rem;align-items:start}
+.catalogo-card{border:1px solid #dce7e1;border-radius:16px;box-shadow:0 7px 24px rgba(39,70,57,.06);padding:clamp(1.1rem,3vw,1.7rem)}
+.catalogo-card-heading{display:flex;gap:.8rem;align-items:flex-start;margin-bottom:1.5rem}
+.catalogo-card-heading h3{margin:0;font-size:1.12rem;color:#293c38}
+.catalogo-step{display:grid;place-items:center;background:var(--catalogo-light);color:var(--catalogo-accent);font-weight:800;width:38px;height:38px;border-radius:12px;flex:none}
+.catalogo-fields-two{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.catalogo-hint{display:block;margin-top:.35rem;color:#73827e;font-size:.79rem}
+.catalogo-management .form-group input,.catalogo-management .form-group select,.catalogo-management .form-group textarea{background:#fff;border:1px solid #d4ded9;border-radius:9px;padding:.73rem .85rem}
+.catalogo-management .form-group input:focus,.catalogo-management .form-group select:focus,.catalogo-management .form-group textarea:focus{outline:2px solid #8bb6a4;outline-offset:1px}
+.catalogo-preview{display:flex;align-items:center;gap:1rem;background:#f7faf8;border:1px dashed #cbded3;border-radius:12px;padding:1rem;margin:0 0 1.25rem}
+.catalogo-cover-frame{display:grid;place-items:center;width:76px;height:104px;background:#e8eee9;border-radius:8px;overflow:hidden;flex:none}
+.catalogo-cover-frame img{width:100%;height:100%;object-fit:cover}
+.catalogo-cover-frame span{text-align:center;font-size:1.7rem;color:#6a8379}
+.catalogo-cover-frame small{display:block;font-size:.68rem}
+.catalogo-tip{background:var(--catalogo-light);border-left:3px solid #7eae9b;border-radius:6px;padding:.9rem;font-size:.88rem;line-height:1.55;margin:1.5rem 0}
+.catalogo-text-link{color:#416e60;font-weight:700;text-decoration:none}
+.catalogo-result{font-size:.87rem;line-height:1.5;margin:.8rem 0 0}
+.catalogo-result-ok{color:#21674d}.catalogo-result-error{color:#a83e40}
+.catalogo-management .btn:disabled{opacity:.65;cursor:wait}
+/* Navegación compartida de las vistas Thymeleaf del catálogo */
+.catalogo-navbar .nav-content{gap:1rem}
+.catalogo-navbar .catalogo-nav-links{display:flex;flex-wrap:wrap;align-items:center;gap:.45rem}
+.catalogo-navbar .catalogo-nav-links a{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;white-space:nowrap;font-size:.84rem;padding:.55rem .75rem}
+.catalogo-navbar .catalogo-nav-links a[aria-current="page"]{background:#e9f2ee;border-color:#a8c9b9;color:#325f51}
+@media(max-width:950px){.catalogo-form-grid{grid-template-columns:1fr}.catalogo-navbar .nav-content{align-items:flex-start}}
+@media(max-width:540px){.catalogo-fields-two{grid-template-columns:1fr}.catalogo-heading .btn{width:100%;text-align:center}}

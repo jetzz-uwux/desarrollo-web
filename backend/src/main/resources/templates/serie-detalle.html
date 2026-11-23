@@ -10,16 +10,23 @@
 <body>
 
 <header class="navbar">
-    <div class="container nav-content">
-        <h1>📚 BookNest</h1>
-        <nav>
-            <a class="btn btn-outline"
-               th:href="@{/catalogo}">Catálogo</a>
-            <a class="btn btn-outline"
-               th:href="@{/catalogo/series}">Series</a>
-        </nav>
-    </div>
-</header>
+        <div class="container nav-content">
+            <h1>📚 BookNest</h1>
+            <nav aria-label="Navegación principal">
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" th:href="@{/index.html} + '#seccion-resenas'">Reseñas</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" th:href="@{/index.html} + '#seccion-ratings'">Calificaciones</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" th:href="@{/index.html} + '#seccion-estadisticas'">Estadísticas</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" th:href="@{/index.html} + '#seccion-libros'">Libros</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" th:href="@{/index.html} + '#seccion-series'">Series</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" th:href="@{/index.html} + '#seccion-archivos'">Archivos</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none"  th:href="@{/catalogo}">Catálogo</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" aria-current="page" th:href="@{/catalogo/series}">Lista de series</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" th:href="@{/colecciones.html}">Colecciones</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" th:href="@{/perfil.html}">Perfil</a>
+                <a class="nav-btn" style="display:inline-block;text-decoration:none" th:href="@{/login.html}">Login / Registro</a>
+            </nav>
+        </div>
+    </header>
 
 <main class="container">
 
@@ -60,7 +67,7 @@
                         <td th:text="${dato.volumen ?: 'No definido'}"></td>
                         <td th:text="${dato.libro.mainTitle}"></td>
                         <td>
-                            <a class="btn btn-outline"
+                            <a class="nav-btn" style="display:inline-block;text-decoration:none"
                                th:href="@{/catalogo/libros/{id}(id=${dato.libro.id})}">
                                 Ver ficha
                             </a>

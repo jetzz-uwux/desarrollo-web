@@ -37,8 +37,8 @@ function iniciarSesion() {
             localStorage.setItem("usuarioUsername", datos.username || "")
             localStorage.setItem("usuarioEmail", datos.email || email)
             localStorage.setItem("usuarioPasswordHash", passwordHash)
-
             mostrarMensaje("Inicio de sesión exitoso.", true)
+            window.location.href = "/index.html";
         } else {
             detalle = await respuesta.text()
             console.log("Respuesta login (" + respuesta.status + "):", detalle)

@@ -124,6 +124,8 @@ function cerrarSesion() {
 
     console.log("Sesión cerrada y datos limpiados de localStorage.")
     mostrarMensaje("Sesión cerrada.", true)
+    window.location.href = "/login.html";
+
 }
 
 document.addEventListener("DOMContentLoaded", function() {

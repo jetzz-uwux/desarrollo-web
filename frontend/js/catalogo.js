@@ -19,6 +19,13 @@ document.addEventListener("DOMContentLoaded", () => {
     function llenarSelect(selectId, lista, campo) {
         const select = document.getElementById(selectId);
         select.innerHTML = "";
+        if (!lista || lista.length === 0) {
+            const opcion = document.createElement("option");
+            opcion.value = "";
+            opcion.textContent = "No hay opciones disponibles";
+            select.appendChild(opcion);
+            return;
+        }
         lista.forEach(item => {
             const opcion = document.createElement("option");
             opcion.value = item.id;
@@ -43,23 +50,66 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Vista previa local: no descarga ni sube archivos al servidor.
+    const portadaInput = document.getElementById("libro-portada");
+    const portadaImg = document.getElementById("libro-portada-preview");
+    const portadaPlaceholder = document.getElementById("libro-portada-placeholder");
+    function actualizarPortada() {
+        const url = portadaInput.value.trim();
+        portadaImg.hidden = true;
+        portadaPlaceholder.hidden = false;
+        if (url && /^https?:\/\//i.test(url)) portadaImg.src = url;
+        else portadaImg.removeAttribute("src");
+    }
+    portadaImg.addEventListener("load", () => {
+        portadaImg.hidden = false;
+        portadaPlaceholder.hidden = true;
+    });
+    portadaImg.addEventListener("error", () => {
+        portadaImg.hidden = true;
+        portadaPlaceholder.hidden = false;
+    });
+    portadaInput.addEventListener("input", actualizarPortada);
+    document.getElementById("form-libro").addEventListener("reset", () => {
+        setTimeout(actualizarPortada, 0);
+        document.getElementById("libro-resultado").textContent = "";
+    });
+
     // 1. CREAR LIBRO
     document.getElementById("form-libro").addEventListener("submit", async (e) => {
         e.preventDefault();   // evita que la página se recargue
 
+        const fecha = document.getElementById("libro-fecha").value;
+        const portada = portadaInput.value.trim();
         const libro = {
-            mainTitle: document.getElementById("libro-titulo").value,
+            mainTitle: document.getElementById("libro-titulo").value.trim(),
             totalPages: parseInt(document.getElementById("libro-paginas").value, 10),
-            synopsis: document.getElementById("libro-sinopsis").value
+            synopsis: document.getElementById("libro-sinopsis").value.trim(),
+            originalPublicationDate: fecha || null,
+            coverUrl: portada || null
         };
-
+        const boton = document.getElementById("btn-guardar-libro");
+        const resultado = document.getElementById("libro-resultado");
+        boton.disabled = true;
+        boton.textContent = "Guardando...";
+        resultado.textContent = "";
         try {
-            await BookNestAPI.createBook(libro);
+            const creado = await BookNestAPI.createBook(libro);
             avisar("Libro creado correctamente", "success");
-            e.target.reset();       // limpia el formulario
-            cargarSelectores();     // para que el libro nuevo aparezca en el selector
+            e.target.reset();
+            await cargarSelectores();
+            if (creado && creado.id != null) {
+                document.getElementById("libro-select").value = String(creado.id);
+            }
+            resultado.textContent = "✓ Libro guardado. Ahora puedes asociar su autor y género en el paso 2.";
+            resultado.className = "catalogo-result catalogo-result-ok";
         } catch (error) {
             avisar(error.message, "error");
+            resultado.textContent = "No se pudo guardar: " + error.message;
+            resultado.className = "catalogo-result catalogo-result-error";
+        } finally {
+            boton.disabled = false;
+            boton.textContent = "Guardar libro";
         }
     });
 
