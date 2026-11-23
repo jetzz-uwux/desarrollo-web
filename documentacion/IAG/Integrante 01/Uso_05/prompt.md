@@ -1,0 +1,1 @@
+Me da errores al moemnto de integrar cada modulo, necesito que me enumeres que archivos hay que cambiar y que modificaciones habia que realizar para mi modulo, además de que me propongas casos de prueba para hacer test de la página.
